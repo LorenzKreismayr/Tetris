@@ -65,6 +65,10 @@ public class GameController implements Initializable {
                     updateShapes();
                     checkRows();
                     checkBorder();
+                    if (checkCollision((int) test.getY(), (int) test.getX())) {
+                        System.out.println("Collision detected!");
+                    }
+                    System.out.println("no Collision detected!");
 
 //                    // check if a block touches the top
 //                    if () {
@@ -90,12 +94,16 @@ public class GameController implements Initializable {
         test.moveVertical(1);
     }
 
+    /**
+     * @todo check if the block collides with other blocks
+     * A HashMap stores which blocks are located at which coordinates.
+     * If a block reaches a coordinate that is already occupied by another block, a collision is detected.
+     */
     public boolean checkCollision(int yofblock, int xofblock) {
-        // @todo check if the block collides with other blocks
-        if (!(blockscoordinates.containsKey(xofblock) && blockscoordinates.containsValue(yofblock))) {
-            return true;    //you can move the block
+        if (blockscoordinates.containsKey(xofblock) && blockscoordinates.containsValue(yofblock)) {
+            return true;    //you are not allowed to move the block
         } else {
-            return false;   //you are not allowed to move the block
+            return false;   //you can move the block
         }
     }
 
