@@ -19,9 +19,14 @@ public class GameController implements Initializable {
 
     private boolean isRunning = false;
 
+    private final int BLOCKS_PER_ROW = 10;
+    private double BLOCK_WIDTH;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        test = new Block(0,0,10, Color.AQUAMARINE);
+        BLOCK_WIDTH = gamePane.getPrefWidth() / BLOCKS_PER_ROW;
+
+        test = new Block(10,10, BLOCK_WIDTH, Color.RED);
         gamePane.getChildren().add(test);
 
         gamePane.sceneProperty().addListener((observable, oldScene, newScene) -> {
@@ -29,12 +34,10 @@ public class GameController implements Initializable {
                 newScene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
                     switch (event.getCode()) {
                         case A, LEFT:
-                            System.out.println("right");
-                            test.moveHorizontal(-10);
+                            test.moveHorizontal(-BLOCK_WIDTH);
                             break;
                         case D, RIGHT:
-                            System.out.println("left");
-                            test.moveHorizontal(10);
+                            test.moveHorizontal(BLOCK_WIDTH);
                             break;
                     }
                 });
@@ -42,6 +45,7 @@ public class GameController implements Initializable {
         });
 
         // @todo add start button
+        isRunning = true;
         startGameLoop();
     }
 
@@ -72,7 +76,8 @@ public class GameController implements Initializable {
      * calls the update function for all shapes
      */
     private void updateShapes() {
-
+        // @todo move to shape class
+        test.moveVertical(1);
     }
 
     /**
