@@ -4,9 +4,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
@@ -15,7 +16,8 @@ public class GameController implements Initializable {
     public Label scoreLabel;
 
     private Thread gameLoop;
-    private Block test;
+    private final List<Shape> shapes = new ArrayList<>();
+    private Shape test;
 
     private boolean isRunning = false;
 
@@ -26,8 +28,8 @@ public class GameController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         BLOCK_WIDTH = gamePane.getPrefWidth() / BLOCKS_PER_ROW;
 
-        test = new Block(10,10, BLOCK_WIDTH, Color.RED);
-        gamePane.getChildren().add(test);
+        test = new Shape(ShapeType.SHAPE_I, BLOCK_WIDTH);
+        gamePane.getChildren().addAll(test.getBlocks());
 
         gamePane.sceneProperty().addListener((observable, oldScene, newScene) -> {
             if (newScene != null) {
@@ -76,8 +78,7 @@ public class GameController implements Initializable {
      * calls the update function for all shapes
      */
     private void updateShapes() {
-        // @todo move to shape class
-        test.moveVertical(1);
+        test.update();
     }
 
     /**
