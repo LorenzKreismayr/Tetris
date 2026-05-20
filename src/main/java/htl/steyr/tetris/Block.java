@@ -27,4 +27,8 @@ public class Block extends Rectangle {
         System.out.println("[Update Y] " + newY);
         setY(newY);
     }
+
+
+
+
 }

@@ -7,7 +7,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class GameController implements Initializable {
     public Pane gamePane;
@@ -18,6 +18,9 @@ public class GameController implements Initializable {
     private Block test;
 
     private boolean isRunning = false;
+
+    // for collision checking we need to save the blocks in a 2D array
+    private final Map<Integer, Integer> blockscoordinates = new HashMap<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -73,6 +76,15 @@ public class GameController implements Initializable {
      */
     private void updateShapes() {
 
+    }
+
+    public boolean checkCollision(int yofblock, int xofblock) {
+        // @todo check if the block collides with other blocks or the walls
+        if(!(blockscoordinates.containsKey(xofblock) && blockscoordinates.containsValue(yofblock))) {
+            return true;    //you can move the block
+        }else {
+            return false;   //you are not allowed to move the block
+        }
     }
 
     /**
