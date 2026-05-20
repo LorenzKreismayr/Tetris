@@ -34,6 +34,8 @@ public class GameController implements Initializable {
         test = new Block(10,10, BLOCK_WIDTH, Color.RED);
         gamePane.getChildren().add(test);
 
+        gamePane.setStyle("-fx-border-color: black;");
+
         gamePane.sceneProperty().addListener((observable, oldScene, newScene) -> {
             if (newScene != null) {
                 newScene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
@@ -55,11 +57,14 @@ public class GameController implements Initializable {
     }
 
     public void startGameLoop() {
+        isRunning = true;
+
         gameLoop = new Thread(() -> {
             try {
                 while (isRunning) {
                     updateShapes();
                     checkRows();
+                    checkBorder();
 
 //                    // check if a block touches the top
 //                    if () {
@@ -99,5 +104,15 @@ public class GameController implements Initializable {
      */
     private void checkRows() {
 
+    }
+
+    private void checkBorder(){
+        if (test.getX() < 0){
+            test.setX(0);
+        }
+
+        if ((test.getX() + test.getWidth()) > gamePane.getWidth()){
+            test.setX(gamePane.getWidth() - test.getWidth());
+        }
     }
 }
