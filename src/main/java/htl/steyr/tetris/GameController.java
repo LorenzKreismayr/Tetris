@@ -31,7 +31,7 @@ public class GameController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         BLOCK_WIDTH = gamePane.getPrefWidth() / BLOCKS_PER_ROW;
 
-        test = new Block(10,10, BLOCK_WIDTH, Color.RED);
+        test = new Block(10, 10, BLOCK_WIDTH, Color.RED);
         gamePane.getChildren().add(test);
 
         gamePane.setStyle("-fx-border-color: black;");
@@ -91,10 +91,10 @@ public class GameController implements Initializable {
     }
 
     public boolean checkCollision(int yofblock, int xofblock) {
-        // @todo check if the block collides with other blocks or the walls
-        if(!(blockscoordinates.containsKey(xofblock) && blockscoordinates.containsValue(yofblock))) {
+        // @todo check if the block collides with other blocks
+        if (!(blockscoordinates.containsKey(xofblock) && blockscoordinates.containsValue(yofblock))) {
             return true;    //you can move the block
-        }else {
+        } else {
             return false;   //you are not allowed to move the block
         }
     }
@@ -106,13 +106,35 @@ public class GameController implements Initializable {
 
     }
 
-    private void checkBorder(){
-        if (test.getX() < 0){
-            test.setX(0);
+    // Checks whether the current block touches the game borders.
+    // Depending on the collision type, the block position is corrected:
+    // - LEFT   → prevents the block from moving outside the left border
+    // - RIGHT  → prevents the block from moving outside the right border
+    // - BOTTOM → prevents the block from falling below the game area
+    private void checkBorder() {
+        String collision = "";
+
+        if (test.getX() < 0) {
+            collision = "LEFT";
+        } else if ((test.getX() + test.getWidth()) > gamePane.getWidth()) {
+            collision = "RIGHT";
+        } else if ((test.getY() + test.getHeight()) > gamePane.getHeight()) {
+            collision = "BOTTOM";
         }
 
-        if ((test.getX() + test.getWidth()) > gamePane.getWidth()){
-            test.setX(gamePane.getWidth() - test.getWidth());
+        switch (collision) {
+
+            case "LEFT":
+                test.setX(0);
+                break;
+
+            case "RIGHT":
+                test.setX(gamePane.getWidth() - test.getWidth());
+                break;
+
+            case "BOTTOM":
+                test.setY(gamePane.getHeight() - test.getHeight());
+                break;
         }
     }
 }
