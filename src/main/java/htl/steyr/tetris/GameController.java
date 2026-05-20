@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,6 +14,8 @@ public class GameController implements Initializable {
     public Pane gamePane;
     public Pane nextShapePane;
     public Label scoreLabel;
+
+    private static final int CELL_SIZE = 40;
 
     private Thread gameLoop;
     private Block test;
@@ -44,9 +47,27 @@ public class GameController implements Initializable {
             }
         });
 
+        createGridLines(gamePane, 400, 800);
+        createGridLines(nextShapePane, 200, 200);
+
         // @todo add start button
         isRunning = true;
         startGameLoop();
+    }
+
+    private void createGridLines(Pane targetPane, int width, int height) {
+        for (int x = CELL_SIZE; x < width; x += CELL_SIZE) {
+            Line line = new Line(x, 0, x, height);
+            line.setStroke(Color.web("#888888"));
+            line.setStrokeWidth(0.5);
+            targetPane.getChildren().add(line);
+        }
+        for (int y = CELL_SIZE; y < height; y += CELL_SIZE) {
+            Line line = new Line(0, y, width, y);
+            line.setStroke(Color.web("#888888"));
+            line.setStrokeWidth(0.5);
+            targetPane.getChildren().add(line);
+        }
     }
 
     public void startGameLoop() {
