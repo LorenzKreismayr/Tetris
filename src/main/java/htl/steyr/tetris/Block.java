@@ -5,7 +5,7 @@ import javafx.scene.shape.Rectangle;
 
 public class Block extends Rectangle {
 
-    public Block(int posX, int posY, int size, Color color) {
+    public Block(int posX, int posY, double size, Color color) {
         setX(posX);
         setY(posY);
         setHeight(size);
