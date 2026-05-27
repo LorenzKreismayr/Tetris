@@ -19,6 +19,9 @@ public class GameController implements Initializable {
 
     private boolean isRunning = false;
 
+    // for collision checking we need to save the blocks in a 2D array
+    private final Map<Integer, Integer> blockscoordinates = new HashMap<>();
+
     private final int BLOCKS_PER_ROW = 10;
     private double BLOCK_WIDTH;
 
@@ -44,6 +47,10 @@ public class GameController implements Initializable {
                             break;
                         case D, RIGHT:
                             test.moveHorizontal(BLOCK_WIDTH);
+                            break;
+                        //rotate the block with W or UP
+                        case W, UP:
+                            test.rotateShape();
                             break;
                     }
                 });
