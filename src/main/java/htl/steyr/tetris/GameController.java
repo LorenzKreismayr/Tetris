@@ -65,10 +65,19 @@ public class GameController implements Initializable {
                     updateShapes();
                     checkRows();
                     checkBorder();
-                    if (checkCollision((int) test.getY(), (int) test.getX())) {
+                    /**
+                     * @todo check collision with other blocks not done --> missing blocks to put in array
+                    if (checkCollision((int) test.getY(), (int) test.getX()) || checkBorder().equals("BOTTOM")) {
                         System.out.println("Collision detected!");
+                        blockscoordinates.put((int) test.getX(), (int) test.getY());
+                        System.out.println("Block added to coordinates: " + test.getX() + ", " + test.getY());
+                        System.out.println("Current blocks coordinates: " + blockscoordinates);
+                        test.moveHorizontal(0);
+                        test.moveVertical(0);
+
                     }
                     System.out.println("no Collision detected!");
+                     */
 
 //                    // check if a block touches the top
 //                    if () {
@@ -119,7 +128,7 @@ public class GameController implements Initializable {
     // - LEFT   → prevents the block from moving outside the left border
     // - RIGHT  → prevents the block from moving outside the right border
     // - BOTTOM → prevents the block from falling below the game area
-    private void checkBorder() {
+    private String checkBorder() {
         String collision = "";
 
         if (test.getX() < 0) {
@@ -144,5 +153,7 @@ public class GameController implements Initializable {
                 test.setY(gamePane.getHeight() - test.getHeight());
                 break;
         }
+
+        return collision;
     }
 }
