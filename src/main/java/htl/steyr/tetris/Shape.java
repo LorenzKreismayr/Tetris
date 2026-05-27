@@ -37,7 +37,44 @@ public class Shape {
         }
     }
 
+    /**
+     * Rotates the current shape by 90 degrees clockwise.
+     *
+     * The second block of the shape is used as the rotation center.
+     * Each block position is translated relative to the middle,
+     * rotated, and then moved back to its new position.
+     *
+     * Rotation formula:
+     * (x, y) -> (-y, x)
+     *
+     * This method currently does not check for:
+     * - border collisions
+     * - collisions with other shapes
+     * - invalid wall rotations
+     */
+    public void rotateShape() {
+
+        Block middle = blocks.get(1);
+
+        double middleX = middle.getX();
+        double middleY = middle.getY();
+
+        for (Block block : blocks) {
+
+            double relativeX = block.getX() - middleX;
+            double relativeY = block.getY() - middleY;
+
+
+            double rotatedX = -relativeY;
+            double rotatedY = relativeX;
+
+            block.setX(middleX + rotatedX);
+            block.setY(middleY + rotatedY);
+        }
+    }
+
     public List<Block> getBlocks() {
         return blocks;
     }
+
 }

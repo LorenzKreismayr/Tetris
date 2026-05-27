@@ -6,10 +6,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class GameController implements Initializable {
     public Pane gamePane;
@@ -47,6 +44,10 @@ public class GameController implements Initializable {
                         case D, RIGHT:
                             test.moveHorizontal(BLOCK_WIDTH);
                             break;
+                        //rotate the block with W or UP
+                        case W, UP:
+                            test.rotateShape();
+                            break;
                     }
                 });
             }
@@ -66,8 +67,11 @@ public class GameController implements Initializable {
                     updateShapes();
                     checkRows();
                     checkBorder();
-                    if (checkCollision((int) test.getY(), (int) test.getX())) {
-                        System.out.println("Collision detected!");
+                    for (Block block : test.getBlocks()) {
+
+                        if (checkCollision((int) block.getY(), (int) block.getX())) {
+                            System.out.println("Collision detected!");
+                        }
                     }
                     System.out.println("no Collision detected!");
 
@@ -124,27 +128,31 @@ public class GameController implements Initializable {
     private void checkBorder() {
         String collision = "";
 
-        if (test.getX() < 0) {
-            collision = "LEFT";
-        } else if ((test.getX() + test.getWidth()) > gamePane.getWidth()) {
-            collision = "RIGHT";
-        } else if ((test.getY() + test.getHeight()) > gamePane.getHeight()) {
-            collision = "BOTTOM";
-        }
+        for (Block block : test.getBlocks()) {
 
-        switch (collision) {
 
-            case "LEFT":
-                test.setX(0);
-                break;
+            if (block.getX() <0){
+                collision = "LEFT";
+            } else if ((block.getX() + block.getWidth()) > gamePane.getWidth()) {
+                collision = "RIGHT";
+            } else if ((block.getX() + block.getWidth()) > gamePane.getHeight()) {
+                collision = "BOTTOM";
+            }
 
-            case "RIGHT":
-                test.setX(gamePane.getWidth() - test.getWidth());
-                break;
+            switch (collision) {
 
-            case "BOTTOM":
-                test.setY(gamePane.getHeight() - test.getHeight());
-                break;
+                case "LEFT":
+                    block.setX(0);
+                    break;
+
+                case "RIGHT":
+                    block.setX(gamePane.getWidth() - block.getWidth());
+                    break;
+
+                case "BOTTOM":
+                    block.setY(gamePane.getHeight() - block.getHeight());
+                    break;
+            }
         }
     }
 }
