@@ -6,10 +6,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class GameController implements Initializable {
     public Pane gamePane;
@@ -22,17 +19,18 @@ public class GameController implements Initializable {
 
     private boolean isRunning = false;
 
-    // for collision checking we need to save the blocks in a 2D array
-    private final Map<Integer, Integer> blockscoordinates = new HashMap<>();
-
     private final int BLOCKS_PER_ROW = 10;
     private double BLOCK_WIDTH;
 
+    private static GameController instance;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        instance = this;
+
         BLOCK_WIDTH = gamePane.getPrefWidth() / BLOCKS_PER_ROW;
 
-        test = new Shape(ShapeType.SHAPE_I, BLOCK_WIDTH);
+        test = new Shape(ShapeType.SHAPE_T, BLOCK_WIDTH);
         gamePane.getChildren().addAll(test.getBlocks());
 
         gamePane.setStyle("-fx-border-color: black;");
@@ -65,11 +63,11 @@ public class GameController implements Initializable {
                 while (isRunning) {
                     updateShapes();
                     checkRows();
-                    checkBorder();
-                    if (checkCollision((int) test.getY(), (int) test.getX())) {
-                        System.out.println("Collision detected!");
-                    }
-                    System.out.println("no Collision detected!");
+                    //checkBorder();
+//                    if (checkCollision((int) test.getY(), (int) test.getX())) {
+//                        System.out.println("Collision detected!");
+//                    }
+                    //System.out.println("no Collision detected!");
 
 //                    // check if a block touches the top
 //                    if () {
@@ -99,13 +97,13 @@ public class GameController implements Initializable {
      * A HashMap stores which blocks are located at which coordinates.
      * If a block reaches a coordinate that is already occupied by another block, a collision is detected.
      */
-    public boolean checkCollision(int yofblock, int xofblock) {
-        if (blockscoordinates.containsKey(xofblock) && blockscoordinates.containsValue(yofblock)) {
-            return true;    //you are not allowed to move the block
-        } else {
-            return false;   //you can move the block
-        }
-    }
+//    public boolean checkCollision(int yofblock, int xofblock) {
+//        if (blockscoordinates.containsKey(xofblock) && blockscoordinates.containsValue(yofblock)) {
+//            return true;    //you are not allowed to move the block
+//        } else {
+//            return false;   //you can move the block
+//        }
+//    }
 
     /**
      * checks if a row is full and deletes it
@@ -121,30 +119,34 @@ public class GameController implements Initializable {
      * - RIGHT  → prevents the block from moving outside the right border
      * - BOTTOM → prevents the block from falling below the game area
      */
-    private void checkBorder() {
-        String collision = "";
+//    private void checkBorder() {
+//        String collision = "";
+//
+//        if (test.getX() < 0) {
+//            collision = "LEFT";
+//        } else if ((test.getX() + test.getWidth()) > gamePane.getWidth()) {
+//            collision = "RIGHT";
+//        } else if ((test.getY() + test.getHeight()) > gamePane.getHeight()) {
+//            collision = "BOTTOM";
+//        }
+//
+//        switch (collision) {
+//
+//            case "LEFT":
+//                test.setX(0);
+//                break;
+//
+//            case "RIGHT":
+//                test.setX(gamePane.getWidth() - test.getWidth());
+//                break;
+//
+//            case "BOTTOM":
+//                test.setY(gamePane.getHeight() - test.getHeight());
+//                break;
+//        }
+//    }
 
-        if (test.getX() < 0) {
-            collision = "LEFT";
-        } else if ((test.getX() + test.getWidth()) > gamePane.getWidth()) {
-            collision = "RIGHT";
-        } else if ((test.getY() + test.getHeight()) > gamePane.getHeight()) {
-            collision = "BOTTOM";
-        }
-
-        switch (collision) {
-
-            case "LEFT":
-                test.setX(0);
-                break;
-
-            case "RIGHT":
-                test.setX(gamePane.getWidth() - test.getWidth());
-                break;
-
-            case "BOTTOM":
-                test.setY(gamePane.getHeight() - test.getHeight());
-                break;
-        }
+    public static GameController getInstance() {
+        return instance;
     }
 }
