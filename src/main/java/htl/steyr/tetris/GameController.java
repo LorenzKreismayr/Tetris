@@ -29,7 +29,7 @@ public class GameController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         BLOCK_WIDTH = gamePane.getPrefWidth() / BLOCKS_PER_ROW;
 
-        test = new Block(10,10, BLOCK_WIDTH, Color.RED);
+        test = new Block(0,0, BLOCK_WIDTH, Color.RED);
         gamePane.getChildren().add(test);
 
         gamePane.sceneProperty().addListener((observable, oldScene, newScene) -> {
@@ -62,6 +62,7 @@ public class GameController implements Initializable {
             line.setStrokeWidth(0.5);
             targetPane.getChildren().add(line);
         }
+
         for (int y = CELL_SIZE; y < height; y += CELL_SIZE) {
             Line line = new Line(0, y, width, y);
             line.setStroke(Color.web("#888888"));
