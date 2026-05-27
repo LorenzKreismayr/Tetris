@@ -1,5 +1,6 @@
 package htl.steyr.tetris;
 
+import htl.steyr.tetris.gametime.Gametime;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
@@ -12,6 +13,8 @@ public class GameController implements Initializable {
     public Pane gamePane;
     public Pane nextShapePane;
     public Label scoreLabel;
+    public Label gametimeLabel;
+    private Gametime gametime;
 
     private Thread gameLoop;
     private final List<Shape> shapes = new ArrayList<>();
@@ -37,6 +40,9 @@ public class GameController implements Initializable {
         gamePane.getChildren().addAll(test.getBlocks());
 
         gamePane.setStyle("-fx-border-color: black;");
+
+        gametime = new Gametime(gametimeLabel);
+        gametime.start();
 
         gamePane.sceneProperty().addListener((observable, oldScene, newScene) -> {
             if (newScene != null) {
@@ -87,6 +93,8 @@ public class GameController implements Initializable {
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            } finally {
+                gametime.stop();
             }
         });
         gameLoop.start();
