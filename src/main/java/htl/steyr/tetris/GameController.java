@@ -114,11 +114,13 @@ public class GameController implements Initializable {
 
     }
 
-    // Checks whether the current block touches the game borders.
-    // Depending on the collision type, the block position is corrected:
-    // - LEFT   → prevents the block from moving outside the left border
-    // - RIGHT  → prevents the block from moving outside the right border
-    // - BOTTOM → prevents the block from falling below the game area
+    /**
+     * Checks whether the current block touches the game borders.
+     * Depending on the collision type, the block position is corrected:
+     * - LEFT   → prevents the block from moving outside the left border
+     * - RIGHT  → prevents the block from moving outside the right border
+     * - BOTTOM → prevents the block from falling below the game area
+     */
     private void checkBorder() {
         String collision = "";
 
