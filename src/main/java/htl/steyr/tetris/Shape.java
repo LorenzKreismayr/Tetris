@@ -14,36 +14,49 @@ public class Shape {
         Color color = Color.RED;
 
         switch (type) {
+            // .addAll doesn't work?
             case SHAPE_I:
-                // .addAll doesn't work?
-                blocks.add(new Block(0,0,blockSize,color));
-                blocks.add(new Block(0,blockSize,blockSize,color));
-                blocks.add(new Block(0,blockSize * 2,blockSize,color));
-                blocks.add(new Block(0,blockSize * 3,blockSize,color));
-                break;
-            case SHAPE_BLOCK_4x4:
-                blocks.add(new Block(0,0,blockSize,color));
-                blocks.add(new Block(0,blockSize,blockSize,color));
-                blocks.add(new Block(blockSize,0,blockSize,color));
-                blocks.add(new Block(blockSize,blockSize,blockSize,color));
+                blocks.add(new Block(0, 0, blockSize, color));
+                blocks.add(new Block(0, blockSize, blockSize, color));
+                blocks.add(new Block(0, blockSize * 2, blockSize, color));
+                blocks.add(new Block(0, blockSize * 3, blockSize, color));
                 break;
             case SHAPE_L:
-                blocks.add(new Block(0,0,blockSize,color));
-                blocks.add(new Block(0,blockSize,blockSize,color));
-                blocks.add(new Block(0,blockSize * 2,blockSize,color));
-                blocks.add(new Block(blockSize,blockSize * 2,blockSize,color));
+                blocks.add(new Block(0, 0, blockSize, color));
+                blocks.add(new Block(0, blockSize, blockSize, color));
+                blocks.add(new Block(0, blockSize * 2, blockSize, color));
+                blocks.add(new Block(blockSize, blockSize * 2, blockSize, color));
                 break;
-            case SHAPE_STAIR_LEFT:
-                blocks.add(new Block(0,0,blockSize,color));
-                blocks.add(new Block(0,blockSize,blockSize,color));
-                blocks.add(new Block(blockSize,blockSize,blockSize,color));
-                blocks.add(new Block(blockSize,blockSize * 2,blockSize,color));
+            case SHAPE_J:
+                blocks.add(new Block(blockSize, 0, blockSize, color));
+                blocks.add(new Block(blockSize, blockSize, blockSize, color));
+                blocks.add(new Block(blockSize, blockSize * 2, blockSize, color));
+                blocks.add(new Block(0, blockSize * 2, blockSize, color));
                 break;
-            case SHAPE_STAIR_RIGHT:
-                blocks.add(new Block(blockSize,0,blockSize,color));
-                blocks.add(new Block(blockSize,blockSize,blockSize,color));
-                blocks.add(new Block(0,blockSize,blockSize,color));
-                blocks.add(new Block(0,blockSize * 2,blockSize,color));
+            case SHAPE_T:
+                blocks.add(new Block(blockSize, 0, blockSize, color));
+                blocks.add(new Block(blockSize, blockSize, blockSize, color));
+                blocks.add(new Block(blockSize, blockSize * 2, blockSize, color));
+                blocks.add(new Block(0, blockSize * 2, blockSize, color));
+                blocks.add(new Block(blockSize * 2, blockSize * 2, blockSize, color));
+                break;
+            case SHAPE_BLOCK_4x4:
+                blocks.add(new Block(0, 0, blockSize, color));
+                blocks.add(new Block(0, blockSize, blockSize, color));
+                blocks.add(new Block(blockSize, 0, blockSize, color));
+                blocks.add(new Block(blockSize, blockSize, blockSize, color));
+                break;
+            case SHAPE_STAIR:
+                blocks.add(new Block(0, 0, blockSize, color));
+                blocks.add(new Block(0, blockSize, blockSize, color));
+                blocks.add(new Block(blockSize, blockSize, blockSize, color));
+                blocks.add(new Block(blockSize, blockSize * 2, blockSize, color));
+                break;
+            case SHAPE_STAIR_MIRRORED:
+                blocks.add(new Block(blockSize, 0, blockSize, color));
+                blocks.add(new Block(blockSize, blockSize, blockSize, color));
+                blocks.add(new Block(0, blockSize, blockSize, color));
+                blocks.add(new Block(0, blockSize * 2, blockSize, color));
                 break;
         }
     }
