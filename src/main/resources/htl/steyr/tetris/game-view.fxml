@@ -15,11 +15,21 @@
                 <Font size="22.0" />
             </font>
         </Text>
-        <Label fx:id="scoreLabel" layoutX="510.0" layoutY="136.0" prefHeight="30.0" prefWidth="104.0" text="x">
+        <Label fx:id="scoreLabel" layoutX="501.0" layoutY="135.0" prefHeight="30.0" prefWidth="104.0" text="x">
             <font>
-                <Font size="20.0" />
+                <Font size="22.0" />
             </font>
         </Label>
         <Text layoutX="436.0" layoutY="540.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Beschreibung, wie sich die Blöcke bewegen" />
+      <Text layoutX="436.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spielzeit:">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Label fx:id="gametimeLabel" layoutX="529.0" layoutY="174.0" prefHeight="30.0" prefWidth="104.0" text="00:00">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>
