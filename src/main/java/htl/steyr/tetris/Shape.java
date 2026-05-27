@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Shape {
-    private List<Block> blocks = new ArrayList<>();
+    private final List<Block> blocks = new ArrayList<>();
+    private boolean updateBlocks = true;
 
     public Shape(ShapeType type, double blockSize) {
         // @todo random color
@@ -24,6 +25,10 @@ public class Shape {
     }
 
     public void update() {
+        if (!updateBlocks) {
+            return;
+        }
+
         for (Block block : blocks) {
             // move every block down by one
             block.moveVertical(1);
@@ -39,5 +44,13 @@ public class Shape {
 
     public List<Block> getBlocks() {
         return blocks;
+    }
+
+    public boolean isUpdatetingBlocks() {
+        return updateBlocks;
+    }
+
+    public void setUpdateBlocks(boolean value) {
+        this.updateBlocks = value;
     }
 }
