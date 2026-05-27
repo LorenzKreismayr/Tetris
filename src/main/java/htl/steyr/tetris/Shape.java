@@ -21,6 +21,30 @@ public class Shape {
                 blocks.add(new Block(0,blockSize * 2,blockSize,color));
                 blocks.add(new Block(0,blockSize * 3,blockSize,color));
                 break;
+            case SHAPE_BLOCK_4x4:
+                blocks.add(new Block(0,0,blockSize,color));
+                blocks.add(new Block(0,blockSize,blockSize,color));
+                blocks.add(new Block(blockSize,0,blockSize,color));
+                blocks.add(new Block(blockSize,blockSize,blockSize,color));
+                break;
+            case SHAPE_L:
+                blocks.add(new Block(0,0,blockSize,color));
+                blocks.add(new Block(0,blockSize,blockSize,color));
+                blocks.add(new Block(0,blockSize * 2,blockSize,color));
+                blocks.add(new Block(blockSize,blockSize * 2,blockSize,color));
+                break;
+            case SHAPE_STAIR_LEFT:
+                blocks.add(new Block(0,0,blockSize,color));
+                blocks.add(new Block(0,blockSize,blockSize,color));
+                blocks.add(new Block(blockSize,blockSize,blockSize,color));
+                blocks.add(new Block(blockSize,blockSize * 2,blockSize,color));
+                break;
+            case SHAPE_STAIR_RIGHT:
+                blocks.add(new Block(blockSize,0,blockSize,color));
+                blocks.add(new Block(blockSize,blockSize,blockSize,color));
+                blocks.add(new Block(0,blockSize,blockSize,color));
+                blocks.add(new Block(0,blockSize * 2,blockSize,color));
+                break;
         }
     }
 
