@@ -27,6 +27,7 @@ public class GameController implements Initializable {
 
     private final int BLOCKS_PER_ROW = 10;
     private double BLOCK_WIDTH;
+    private int score = 1;
 
     private static GameController instance;
 
@@ -104,7 +105,7 @@ public class GameController implements Initializable {
      * calls the update function for all shapes
      */
     private void updateShapes() {
-        test.update();
+        test.update(score);
     }
 
     /**
@@ -124,7 +125,7 @@ public class GameController implements Initializable {
      * checks if a row is full and deletes it
      */
     private void checkRows() {
-
+        // @todo update "score" variable
     }
 
     /**

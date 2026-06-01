@@ -78,14 +78,19 @@ public class Shape {
         }
     }
 
-    public void update() {
+    /**
+     *
+     * @param curScore
+     */
+    public void update(int curScore) {
         if (!updateBlocks) {
             return;
         }
 
         for (Block block : blocks) {
-            // move every block down by one
-            block.moveVertical(1);
+            // move every block down by one,
+            // increases exponentially dependent on the players score
+            block.moveVertical(1 * (0.000002 * Math.pow(curScore, 2) - 0.001 * curScore + 1));
         }
     }
 
