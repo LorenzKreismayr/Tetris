@@ -18,7 +18,6 @@ public class GameController implements Initializable {
     public Label gametimeLabel;
     private Gametime gametime;
 
-    private Thread gameLoop;
     private Shape activeShape;
 
     private volatile boolean isRunning = false;
@@ -27,7 +26,6 @@ public class GameController implements Initializable {
     private static final int COLS = 10;
     private final Block[][] grid = new Block[ROWS][COLS];
 
-    private final int BLOCKS_PER_ROW = 10;
     private double BLOCK_WIDTH;
     private int score = 1;
 
@@ -37,6 +35,7 @@ public class GameController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
 
+        int BLOCKS_PER_ROW = 10;
         BLOCK_WIDTH = gamePane.getPrefWidth() / BLOCKS_PER_ROW;
 
         spawnShape();
@@ -73,7 +72,9 @@ public class GameController implements Initializable {
     public void startGameLoop() {
         isRunning = true;
 
-        gameLoop = new Thread(() -> {
+        //checkAndClearRows();
+        // ~60 updates / sek
+        Thread gameLoop = new Thread(() -> {
             try {
                 while (isRunning) {
                     Platform.runLater(() -> {
@@ -83,7 +84,7 @@ public class GameController implements Initializable {
                             activeShape.update();
                         } else {
                             placeShape();
-                            //checkAndClearRows();
+                            checkAndClearRows();
                             spawnShape();
                         }
                     });
