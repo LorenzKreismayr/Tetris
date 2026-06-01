@@ -255,6 +255,48 @@ public class GameController implements Initializable {
     }
 
 
+    /**
+     * Checks all rows from bottom to top. Full rows are cleared:
+     * blocks are removed from the pane, and all rows above shift down.
+     */
+    private void checkAndClearRows() {
+        for (int row = ROWS - 1; row >= 0; row--) {
+            boolean full = true;
+            for (int col = 0; col < COLS; col++) {
+                if (grid[row][col] == null) {
+                    full = false;
+                    break;
+                }
+            }
+
+            if (full) {
+                // Remove full row blocks from pane
+                for (int col = 0; col < COLS; col++) {
+                    gamePane.getChildren().remove(grid[row][col]);
+                    grid[row][col] = null;
+                }
+
+                // Shift all rows above down by one
+                for (int r = row; r > 0; r--) {
+                    for (int col = 0; col < COLS; col++) {
+                        grid[r][col] = grid[r - 1][col];
+                        if (grid[r][col] != null) {
+                            grid[r][col].setY(r * BLOCK_WIDTH);
+                        }
+                    }
+                }
+
+                // Clear the top row
+                for (int col = 0; col < COLS; col++) {
+                    grid[0][col] = null;
+                }
+
+                // Re-check the same row (rows shifted down into it)
+                row++;
+            }
+        }
+    }
+
 
     public static GameController getInstance() {
         return instance;
