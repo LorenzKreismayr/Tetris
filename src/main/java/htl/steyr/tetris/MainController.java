@@ -1,5 +1,6 @@
 package htl.steyr.tetris;
 
+import htl.steyr.tetris.music.Music;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -28,10 +29,10 @@ public class MainController implements Initializable {
 
         // add buttons to toggleGroup
         for (Node node : menuBarHBox.getChildren()) {
-            if (!node.getId().equals("groupIgnore") && !node.getId().isEmpty()) {
-                ToggleButton tmp = (ToggleButton) node;
-                tmp.setToggleGroup(menuBarToggleGroup);
-            }
+            if (node instanceof ToggleButton tmp)
+                if (!node.getId().equals("groupIgnore") && !node.getId().isEmpty()) {
+                    tmp.setToggleGroup(menuBarToggleGroup);
+                }
         }
 
         // prevent "untoggling" when clicking the toggled button
@@ -66,6 +67,17 @@ public class MainController implements Initializable {
      * @param view fxml file in /com/frontend/view/content/
      */
     public void loadContentView(String view) {
+
+        switch (view) {
+            case "lobby-view.fxml":
+                Music.play("/htl/steyr/tetris/songs/lobby.mp3");
+                break;
+
+            case "game-view.fxml":
+                Music.play("/htl/steyr/tetris/songs/game.mp3");
+                break;
+        }
+
         loadView(contentPane, view, "MainController");
     }
 
@@ -112,7 +124,6 @@ public class MainController implements Initializable {
     }
 
     public void onVolumeButtonClicked(ActionEvent actionEvent) {
-        volumeSlider.setVisible(true);
     }
 
     public void onPausedButtonClicked(ActionEvent actionEvent) {
