@@ -124,11 +124,14 @@ public class MainController implements Initializable {
     }
 
     public void onVolumeButtonClicked(ActionEvent actionEvent) {
+        volumeSlider.setVisible(true);
     }
 
     public void onPausedButtonClicked(ActionEvent actionEvent) {
+        Music.pause();
     }
 
     public void onStartButtonClicked(ActionEvent actionEvent) {
+        Music.resume();
     }
 }

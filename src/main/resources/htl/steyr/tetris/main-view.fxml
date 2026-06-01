@@ -13,7 +13,7 @@
                 <ToggleButton id="lobby-view.fxml" mnemonicParsing="false" onAction="#onMenuBarButtonClicked" styleClass="button-group" text="Home" />
                 <ToggleButton id="game-view.fxml" mnemonicParsing="false" onAction="#onMenuBarButtonClicked" styleClass="button-group" text="Reset" />
                 <Region id="groupIgnore" prefHeight="30.0" prefWidth="127.0" HBox.hgrow="ALWAYS" />
-            <Slider fx:id="volumeSlider" prefHeight="14.0" prefWidth="78.0" />
+            <Slider fx:id="volumeSlider" prefHeight="14.0" prefWidth="78.0" visible="false" />
             <ToggleButton id="game-view.fxml" mnemonicParsing="false" onAction="#onVolumeButtonClicked" styleClass="button-group" text="📢" />
             <ToggleButton id="game-view.fxml" mnemonicParsing="false" onAction="#onPausedButtonClicked" styleClass="button-group" text="⏸" />
             <ToggleButton id="game-view.fxml" mnemonicParsing="false" onAction="#onStartButtonClicked" styleClass="button-group" text="▶" />
