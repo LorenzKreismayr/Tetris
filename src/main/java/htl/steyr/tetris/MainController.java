@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
@@ -19,6 +20,7 @@ public class MainController implements Initializable {
     public AnchorPane contentPane;
     private static MainController instance;
     protected final ToggleGroup menuBarToggleGroup = new ToggleGroup();
+    public Slider volumeSlider;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -107,5 +109,15 @@ public class MainController implements Initializable {
      */
     public static MainController getInstance() {
         return instance;
+    }
+
+    public void onVolumeButtonClicked(ActionEvent actionEvent) {
+        volumeSlider.setVisible(true);
+    }
+
+    public void onPausedButtonClicked(ActionEvent actionEvent) {
+    }
+
+    public void onStartButtonClicked(ActionEvent actionEvent) {
     }
 }
