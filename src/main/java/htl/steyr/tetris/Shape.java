@@ -94,6 +94,14 @@ public class Shape {
         }
     }
 
+
+    public void stopmovement(){
+        System.out.println("hier wird gestoppt");
+        updateBlocks = false;
+    }
+
+
+
     public void moveHorizontal(double amount) {
         for (Block block : blocks) {
             // move every block left (-) or right (+)
@@ -131,8 +139,8 @@ public class Shape {
             double rotatedX = -relativeY;
             double rotatedY = relativeX;
 
-            block.setX(middleX + rotatedX);
-            block.setY(middleY + rotatedY);
+            block.setX(Math.round(middleX + rotatedX));
+            block.setY(Math.round(middleY + rotatedY));
         }
     }
 
