@@ -29,7 +29,7 @@ public class Shape {
     );
 
     public Shape(ShapeType type, double blockSize) {
-        Color color = colors.get(new Random().nextInt(15));
+        Color color = colors.get(new Random().nextInt(colors.size()));
 
         switch (type) {
             case SHAPE_I:
