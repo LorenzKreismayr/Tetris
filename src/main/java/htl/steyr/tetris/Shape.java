@@ -4,17 +4,34 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Shape {
     private final List<Block> blocks = new ArrayList<>();
     private boolean updateBlocks = true;
 
+    private List<Color> colors = List.of(
+            new Color(0.72, 0.49, 0.04, 1.0),
+            new Color(0.98, 0.44, 0.05, 1.0),
+            new Color(0.89, 0.25, 0.11, 1.0),
+            new Color(0.71, 0.12, 0.14, 1.0),
+            new Color(0.51, 0.11, 0.31, 1.0),
+            new Color(0.28, 0.16, 0.52, 1.0),
+            new Color(0.18, 0.17, 0.49, 1.0),
+            new Color(0.15, 0.18, 0.22, 1.0),
+            new Color(0.09, 0.29, 0.65, 1.0),
+            new Color(0.02, 0.35, 0.61, 1.0),
+            new Color(0.04, 0.38, 0.39, 1.0),
+            new Color(0.05, 0.31, 0.22, 1.0),
+            new Color(0.13, 0.41, 0.19, 1.0),
+            new Color(0.44, 0.44, 0.16, 1.0),
+            new Color(0.98, 0.47, 0.05, 1.0)
+    );
+
     public Shape(ShapeType type, double blockSize) {
-        // @todo random color
-        Color color = Color.RED;
+        Color color = colors.get(new Random().nextInt(15));
 
         switch (type) {
-            // .addAll doesn't work?
             case SHAPE_I:
                 blocks.add(new Block(0, 0, blockSize, color));
                 blocks.add(new Block(0, blockSize, blockSize, color));
