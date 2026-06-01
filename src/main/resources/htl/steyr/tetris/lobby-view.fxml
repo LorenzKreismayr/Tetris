@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="497.0" prefWidth="702.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="htl.steyr.tetris.LobbyController">
+<AnchorPane prefHeight="497.0" prefWidth="702.0" styleClass="root" stylesheets="@css/lobby.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="htl.steyr.tetris.LobbyController">
 
-   <children>
-      <VBox alignment="CENTER" spacing="20" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <children>
+        <VBox alignment="BOTTOM_CENTER" prefHeight="497.0" prefWidth="702.0" spacing="20" styleClass="lobby-background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
-         <children>
-            <ImageView fx:id="gameLogo" fitHeight="115.0" fitWidth="368.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/logo.jpg" />
-               </image>
-            </ImageView>
-
-            <Button mnemonicParsing="false" onAction="#onStartGameButtonPressed" prefHeight="26.0" prefWidth="227.0" text="Start Game" />
-         </children>
-      </VBox>
-   </children>
+            <children>
+                <Button fx:id="playbutton" mnemonicParsing="false" onAction="#onStartGameButtonPressed" prefHeight="34.0" prefWidth="226.0" text="Start Game" textFill="WHITE">
+               <font>
+                  <Font name="Calisto MT Bold" size="17.0" />
+               </font></Button>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>
