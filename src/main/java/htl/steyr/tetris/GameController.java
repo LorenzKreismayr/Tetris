@@ -81,7 +81,7 @@ public class GameController implements Initializable {
                         if (activeShape == null || !activeShape.isUpdatetingBlocks()) return;
 
                         if (canMoveDown()) {
-                            activeShape.update();
+                            activeShape.update(1);
                         } else {
                             placeShape();
                             checkAndClearRows();
@@ -152,7 +152,7 @@ public class GameController implements Initializable {
     }
 
     private void updateShapes() {
-        test.update(score);
+        activeShape.update(score);
     }
 
     /**
