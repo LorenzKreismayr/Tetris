@@ -80,9 +80,9 @@ public class Shape {
 
     /**
      *
-     * @param curScore
+     * @param curTime
      */
-    public void update(int curScore) {
+    public void update(int curTime) {
         if (!updateBlocks) {
             return;
         }
@@ -90,7 +90,7 @@ public class Shape {
         for (Block block : blocks) {
             // move every block down by one,
             // increases exponentially dependent on the players score
-            block.moveVertical(1 * (0.000002 * Math.pow(curScore, 2) - 0.001 * curScore + 1));
+            block.moveVertical(0.008333 * curTime + 1);
         }
     }
 

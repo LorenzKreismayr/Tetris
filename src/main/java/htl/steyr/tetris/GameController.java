@@ -30,6 +30,8 @@ public class GameController implements Initializable {
     private int score = 1;
 
     private static GameController instance;
+    // increase/decrease affects falling speed
+    private final int BLOCK_VAL = 30;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -81,7 +83,7 @@ public class GameController implements Initializable {
                         if (activeShape == null || !activeShape.isUpdatetingBlocks()) return;
 
                         if (canMoveDown()) {
-                            activeShape.update(1);
+                            activeShape.update(gametime.getTotalSeconds());
                         } else {
                             placeShape();
                             checkAndClearRows();
@@ -152,7 +154,7 @@ public class GameController implements Initializable {
     }
 
     private void updateShapes() {
-        activeShape.update(score);
+        activeShape.update(gametime.getTotalSeconds());
     }
 
     /**
@@ -290,6 +292,9 @@ public class GameController implements Initializable {
                 // Clear the top row
                 for (int col = 0; col < COLS; col++) {
                     grid[0][col] = null;
+                    // update score for each block removed
+                    score += BLOCK_VAL;
+                    scoreLabel.setText(Integer.toString(score));
                 }
 
                 // Re-check the same row (rows shifted down into it)
