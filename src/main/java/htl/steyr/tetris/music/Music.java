@@ -42,4 +42,17 @@ public class Music {
             stopped = false;
         }
     }
+
+    public static void setVolume(double volume) {
+        if (currentPlayer != null) {
+            currentPlayer.setVolume(volume);
+        }
+    }
+
+    public static double getVolume() {
+        if(currentPlayer != null){
+            return currentPlayer.getVolume();
+        }
+        return 0.5;
+    }
 }

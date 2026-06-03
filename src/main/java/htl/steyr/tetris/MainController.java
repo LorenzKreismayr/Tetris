@@ -42,6 +42,16 @@ public class MainController implements Initializable {
             }
         });
 
+        volumeSlider.setMin(0);
+        volumeSlider.setMax(100);
+
+        volumeSlider.setValue(Music.getVolume() * 100);
+
+        volumeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+            double volume = newVal.doubleValue() / 100.0;
+            Music.setVolume(volume);
+        });
+
         // load default site
         loadContentView("lobby-view.fxml");
     }
@@ -127,11 +137,11 @@ public class MainController implements Initializable {
         volumeSlider.setVisible(true);
     }
 
-    public void onPausedButtonClicked(ActionEvent actionEvent) {
+    public void onMusicPausedButtonClicked(ActionEvent actionEvent) {
         Music.pause();
     }
 
-    public void onStartButtonClicked(ActionEvent actionEvent) {
+    public void onMusicStartButtonClicked(ActionEvent actionEvent) {
         Music.resume();
     }
 }
