@@ -10,9 +10,9 @@
         <VBox alignment="BOTTOM_CENTER" prefHeight="497.0" prefWidth="702.0" spacing="20" styleClass="lobby-background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
             <children>
-                <Button fx:id="playbutton" mnemonicParsing="false" onAction="#onStartGameButtonPressed" prefHeight="34.0" prefWidth="226.0" text="Start Game" textFill="WHITE">
+                <Button fx:id="playbutton" mnemonicParsing="false" onAction="#onStartGameButtonPressed" prefHeight="75.0" prefWidth="289.0" text="Start Game" textFill="WHITE">
                <font>
-                  <Font name="Calisto MT Bold" size="17.0" />
+                  <Font name="Calisto MT Bold" size="30.0" />
                </font></Button>
             </children>
         </VBox>

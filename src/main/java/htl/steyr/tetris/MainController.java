@@ -144,4 +144,8 @@ public class MainController implements Initializable {
     public void onMusicStartButtonClicked(ActionEvent actionEvent) {
         Music.resume();
     }
+
+    public void onexitButtonClicked(ActionEvent actionEvent) {
+        System.exit(0);
+    }
 }
