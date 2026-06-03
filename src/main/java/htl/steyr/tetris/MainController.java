@@ -97,9 +97,8 @@ public class MainController implements Initializable {
      * @param targetPane pane where the fxml file should be loaded
      * @param view       fxml file in /com/frontend/view/content/
      * @param src        name of the controller for debugging
-     * @return the controller or null
      */
-    public Object loadView(AnchorPane targetPane, String view, String src) {
+    public void loadView(AnchorPane targetPane, String view, String src) {
         try {
             FXMLLoader contentLoader = new FXMLLoader(getClass().getResource(getContentViewFolder() + view));
             Node tmp = contentLoader.load();
@@ -112,12 +111,11 @@ public class MainController implements Initializable {
             // should prevent flickering over .clear();, .add();
             targetPane.getChildren().setAll(Collections.singleton(tmp));
             // return controller if still needed
-            return contentLoader.getController();
+            contentLoader.getController();
         } catch (IOException e) {
             System.out.printf("[%s] Could not find target fxml", src);
         }
 
-        return null;
     }
 
     private String getContentViewFolder() {
