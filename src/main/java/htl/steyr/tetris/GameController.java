@@ -3,9 +3,12 @@ package htl.steyr.tetris;
 import htl.steyr.tetris.gametime.Gametime;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.Random;
@@ -40,6 +43,7 @@ public class GameController implements Initializable {
         int BLOCKS_PER_ROW = 10;
         BLOCK_WIDTH = gamePane.getPrefWidth() / BLOCKS_PER_ROW;
 
+        drawGrid();
         spawnShape();
 
         gamePane.setStyle("-fx-border-color: black;");
@@ -301,6 +305,33 @@ public class GameController implements Initializable {
                 row++;
             }
         }
+    }
+
+    /**
+     * Draws a grid on the game pane to visualize the Tetris playing field.
+     * The canvas is added as the first child of the game pane so it stays
+     * behind all blocks.
+     */
+    private void drawGrid() {
+        Canvas canvas = new Canvas(gamePane.getPrefWidth(), gamePane.getPrefHeight());
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+
+        //white lines
+        gc.setStroke(Color.rgb(255, 255, 255, 1));
+        gc.setLineWidth(0.5);
+
+        //vertical lines
+        for (int col = 0; col <= COLS; col++) {
+            gc.strokeLine(col * BLOCK_WIDTH, 0, col * BLOCK_WIDTH, gamePane.getPrefHeight());
+        }
+
+        //horizontal lines
+        for (int row = 0; row <= ROWS; row++) {
+            gc.strokeLine(0, row * BLOCK_WIDTH, gamePane.getPrefWidth(), row * BLOCK_WIDTH);
+        }
+
+        //add behind all blocks
+        gamePane.getChildren().add(0, canvas);
     }
 
 
