@@ -185,12 +185,21 @@ public class GameController implements Initializable {
             block.setX(block.getX() + offsetX);
         }
 
+        // center nextShape horizontally
+        double nOffsetX = BLOCK_WIDTH;
+        for (Block block : nextShape.getBlocks()) {
+            block.setX(block.getX() + nOffsetX);
+        }
+
         // Check if the new shape overlaps any placed blocks (game over)
         for (Block block : activeShape.getBlocks()) {
             int row = (int) (block.getY() / BLOCK_WIDTH);
             int col = (int) (block.getX() / BLOCK_WIDTH);
             if (row >= 0 && row < ROWS && col >= 0 && col < COLS && grid[row][col] != null) {
                 isRunning = false;
+                // dont show the next shape if the game is over
+                // because it gets placed incorrect
+                nextShapePane.getChildren().clear();
                 return;
             }
         }
