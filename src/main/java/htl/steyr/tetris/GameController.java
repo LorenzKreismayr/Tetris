@@ -67,7 +67,8 @@ public class GameController implements Initializable {
                         case W, UP:
                             rotateShapeWithCollision();
                             break;
-                        default: break;
+                        default:
+                            break;
                     }
                 });
             }
@@ -235,6 +236,7 @@ public class GameController implements Initializable {
     /**
      * Checks if the active shape can move down by the given amount without
      * hitting the floor or a placed block. If all blocks can move, the shape is moved.
+     *
      * @param amount --> describes the amount of pixels (which is the BLOCK_WIDTH) the shape should move down
      */
     public void moveShapeDown(double amount) {
@@ -262,11 +264,13 @@ public class GameController implements Initializable {
         activeShape.moveVertical(amount);
     }
 
+
     /**
      * Rotates the shape and checks if the result is valid (no overlap
      * with walls or placed blocks). If invalid, undoes the rotation
      * by rotating 3 more times.
      */
+
     private void rotateShapeWithCollision() {
         if (activeShape == null) return;
 
