@@ -2,9 +2,11 @@ package htl.steyr.tetris;
 
 import htl.steyr.tetris.gametime.Gametime;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -19,6 +21,7 @@ public class GameController implements Initializable {
     public Pane nextShapePane;
     public Label scoreLabel;
     public Label gametimeLabel;
+    public Button gameStateButton;
     private Gametime gametime;
 
     private Shape activeShape;
@@ -26,6 +29,7 @@ public class GameController implements Initializable {
 
     private volatile boolean isRunning = false;
 
+    private Thread gameLoop;
     private static final int ROWS = 14;
     private static final int COLS = 10;
     private final Block[][] grid = new Block[ROWS][COLS];
@@ -48,7 +52,6 @@ public class GameController implements Initializable {
         gamePane.setStyle("-fx-border-color: black;");
 
         gametime = new Gametime(gametimeLabel);
-        gametime.start();
 
         gamePane.sceneProperty().addListener((observable, oldScene, newScene) -> {
             if (newScene != null) {
@@ -79,11 +82,9 @@ public class GameController implements Initializable {
     }
 
     public void startGameLoop() {
-        isRunning = true;
-
         //checkAndClearRows();
         // ~60 updates / sek
-        Thread gameLoop = new Thread(() -> {
+        gameLoop = new Thread(() -> {
             try {
                 while (isRunning) {
                     Platform.runLater(() -> {
@@ -393,5 +394,22 @@ public class GameController implements Initializable {
 
     public static GameController getInstance() {
         return instance;
+    }
+
+    public void onGameStateButtonClicked(ActionEvent actionEvent) {
+        if (!isRunning) {
+            isRunning = true;
+            gametime.start();
+            gameStateButton.setText("Pause");
+
+            // Nur starten wenn kein Thread läuft
+            if (gameLoop == null || !gameLoop.isAlive()) {
+                startGameLoop();
+            }
+        } else {
+            isRunning = false;
+            gametime.stop();
+            gameStateButton.setText("Continue");
+        }
     }
 }
