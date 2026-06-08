@@ -63,9 +63,13 @@ public class GameController implements Initializable {
                         case D, RIGHT:
                             moveShapeHorizontal(BLOCK_WIDTH);
                             break;
+                        case S, DOWN:
+                            moveShapeDown(BLOCK_WIDTH);
+                            break;
                         case W, UP:
                             rotateShapeWithCollision();
                             break;
+                        default: break;
                     }
                 });
             }
@@ -232,6 +236,36 @@ public class GameController implements Initializable {
         }
 
         activeShape.moveHorizontal(amount);
+    }
+
+    /**
+     * Checks if the active shape can move down by the given amount without
+     * hitting the floor or a placed block. If all blocks can move, the shape is moved.
+     * @param amount --> describes the amount of pixels (which is the BLOCK_WIDTH) the shape should move down
+     */
+    public void moveShapeDown(double amount) {
+        if (activeShape == null) return;
+
+        for (Block block : activeShape.getBlocks()) {
+            double newY = block.getY() + amount;
+
+            // Wall check
+            if (newY < 0 || newY + BLOCK_WIDTH > gamePane.getPrefHeight()) {
+                return;
+            }
+
+            // Grid check
+            int row = (int) (newY / BLOCK_WIDTH);
+            int col = (int) (block.getX() / BLOCK_WIDTH);
+
+            if (row >= 0 && row < ROWS && col >= 0 && col < COLS) {
+                if (grid[row][col] != null) {
+                    return;
+                }
+            }
+        }
+
+        activeShape.moveVertical(amount);
     }
 
     /**

@@ -100,11 +100,19 @@ public class Shape {
     }
 
 
-
+    //move the shape left or right by the given amount
     public void moveHorizontal(double amount) {
         for (Block block : blocks) {
             // move every block left (-) or right (+)
             block.moveHorizontal(amount);
+        }
+    }
+
+    // every block of the shape gets lowered by the given amount, which is the block width
+    public void moveVertical(double blockWidth) {
+        for (Block block : blocks) {
+            // move every block down by one block width
+            block.moveVertical(blockWidth);
         }
     }
 
@@ -154,4 +162,6 @@ public class Shape {
     public void setUpdateBlocks(boolean value) {
         this.updateBlocks = value;
     }
+
+
 }
