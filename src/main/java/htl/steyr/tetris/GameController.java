@@ -58,16 +58,16 @@ public class GameController implements Initializable {
                 newScene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
                     if (activeShape == null) return;
                     switch (event.getCode()) {
-                        case A, LEFT:
+                        case A, LEFT:   // move every block of the shape to the left by 1 block width (if possible)
                             moveShapeHorizontal(-BLOCK_WIDTH);
                             break;
-                        case D, RIGHT:
+                        case D, RIGHT:  // move every block of the shape to the right by 1 block width (if possible)
                             moveShapeHorizontal(BLOCK_WIDTH);
                             break;
-                        case S, DOWN:
+                        case S, DOWN:   // move every block of the shape down by 1 block width (if possible)
                             moveShapeDown(BLOCK_WIDTH);
                             break;
-                        case W, UP:
+                        case W, UP:     // rotates the shape 90 degrees clockwise (if possible)
                             rotateShapeWithCollision();
                             break;
                         default: break;
@@ -139,9 +139,9 @@ public class GameController implements Initializable {
     }
 
     /**
-     * Snaps the active shape to the grid and registers each block
+     * <p>Snaps the active shape to the grid and registers each block
      * in the placed-blocks grid. The blocks stay as children of the
-     * pane (already rendered) but no longer move.
+     * pane (already rendered) but no longer move. </p>
      */
     private void placeShape() {
         for (Block block : activeShape.getBlocks()) {
@@ -162,9 +162,9 @@ public class GameController implements Initializable {
     }
 
     /**
-     * Spawns a new random shape, centers it horizontally, and adds
+     * <p>Spawns a new random shape, centers it horizontally, and adds
      * its blocks to the game pane. If the new shape overlaps placed
-     * blocks, the game is over.
+     * blocks, the game is over. </p>
      */
     private void spawnShape() {
         ShapeType[] types = ShapeType.values();
@@ -213,9 +213,9 @@ public class GameController implements Initializable {
     }
 
     /**
-     * Checks if the active shape can move horizontally by the given
+     * <p> Checks if {@code activeShape} can move horizontally by the given
      * amount without hitting a wall or a placed block. If all blocks
-     * can move, the shape is moved.
+     * can move, the shape is moved. </p>
      */
     private void moveShapeHorizontal(double amount) {
         if (activeShape == null) return;
