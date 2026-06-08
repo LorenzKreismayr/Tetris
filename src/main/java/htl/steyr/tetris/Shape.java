@@ -10,7 +10,7 @@ public class Shape {
     private final List<Block> blocks = new ArrayList<>();
     private boolean updateBlocks = true;
 
-    private List<Color> colors = List.of(
+    private final List<Color> colors = List.of(
             new Color(0.72, 0.49, 0.04, 1.0),
             new Color(0.98, 0.44, 0.05, 1.0),
             new Color(0.89, 0.25, 0.11, 1.0),
@@ -79,8 +79,8 @@ public class Shape {
     }
 
     /**
-     *
-     * @param curTime
+     * Updates the position of the shape's blocks based on the current time.
+     * @param curTime --> The current time in milliseconds, used to calculate the falling speed of the blocks.
      */
     public void update(int curTime) {
         if (!updateBlocks) {
@@ -119,14 +119,14 @@ public class Shape {
 
     /**
      * Rotates the current shape by 90 degrees clockwise.
-     *
+     * <p>
      * The second block of the shape is used as the rotation center.
      * Each block position is translated relative to the middle,
      * rotated, and then moved back to its new position.
-     *
+     * <p>
      * Rotation formula:
      * (x, y) -> (-y, x)
-     *
+     * <p>
      * This method currently does not check for:
      * - border collisions
      * - collisions with other shapes
