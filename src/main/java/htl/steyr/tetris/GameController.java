@@ -22,6 +22,7 @@ public class GameController implements Initializable {
     private Gametime gametime;
 
     private Shape activeShape;
+    private Shape nextShape;
 
     private volatile boolean isRunning = false;
 
@@ -169,7 +170,16 @@ public class GameController implements Initializable {
     private void spawnShape() {
         ShapeType[] types = ShapeType.values();
         ShapeType randomType = types[new Random().nextInt(types.length)];
-        activeShape = new Shape(randomType, BLOCK_WIDTH);
+
+        // generate two shapes at start
+        if (nextShape == null) {
+            activeShape = new Shape(randomType, BLOCK_WIDTH);
+            nextShape = new Shape(types[new Random().nextInt(types.length)], BLOCK_WIDTH);
+        } else {
+            // set next active and generate one shape
+            activeShape = nextShape;
+            nextShape = new Shape(randomType, BLOCK_WIDTH);
+        }
 
         // Center the shape horizontally (around column 4)
         double offsetX = BLOCK_WIDTH * 4;
@@ -187,7 +197,11 @@ public class GameController implements Initializable {
             }
         }
 
+        // active shape
         gamePane.getChildren().addAll(activeShape.getBlocks());
+        // next shape preview
+        nextShapePane.getChildren().clear();
+        nextShapePane.getChildren().addAll(nextShape.getBlocks());
     }
 
     /**
