@@ -46,7 +46,8 @@ public class GameController implements Initializable {
         int BLOCKS_PER_ROW = 10;
         BLOCK_WIDTH = gamePane.getPrefWidth() / BLOCKS_PER_ROW;
 
-        drawGrid();
+        drawGrid(gamePane, ROWS, COLS);
+        drawGrid(nextShapePane, 4, 4);
         spawnShape();
 
         gamePane.setStyle("-fx-border-color: black;");
@@ -173,6 +174,7 @@ public class GameController implements Initializable {
         } else {
             // set next active and generate one shape
             activeShape = nextShape;
+            nextShapePane.getChildren().remove(nextShape);
             nextShape = new Shape(randomType, BLOCK_WIDTH);
         }
 
@@ -204,7 +206,6 @@ public class GameController implements Initializable {
         // active shape
         gamePane.getChildren().addAll(activeShape.getBlocks());
         // next shape preview
-        nextShapePane.getChildren().clear();
         nextShapePane.getChildren().addAll(nextShape.getBlocks());
     }
 
@@ -365,8 +366,8 @@ public class GameController implements Initializable {
      * The canvas is added as the first child of the game pane so it stays
      * behind all blocks.
      */
-    private void drawGrid() {
-        Canvas canvas = new Canvas(gamePane.getPrefWidth(), gamePane.getPrefHeight());
+    private void drawGrid(Pane target, int rows, int cols) {
+        Canvas canvas = new Canvas(target.getPrefWidth(), target.getPrefHeight());
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         //white lines
@@ -374,17 +375,17 @@ public class GameController implements Initializable {
         gc.setLineWidth(0.5);
 
         //vertical lines
-        for (int col = 0; col <= COLS; col++) {
-            gc.strokeLine(col * BLOCK_WIDTH, 0, col * BLOCK_WIDTH, gamePane.getPrefHeight());
+        for (int col = 0; col <= cols; col++) {
+            gc.strokeLine(col * BLOCK_WIDTH, 0, col * BLOCK_WIDTH, target.getPrefHeight());
         }
 
         //horizontal lines
-        for (int row = 0; row <= ROWS; row++) {
-            gc.strokeLine(0, row * BLOCK_WIDTH, gamePane.getPrefWidth(), row * BLOCK_WIDTH);
+        for (int row = 0; row <= rows; row++) {
+            gc.strokeLine(0, row * BLOCK_WIDTH, target.getPrefWidth(), row * BLOCK_WIDTH);
         }
 
         //add behind all blocks
-        gamePane.getChildren().add(0, canvas);
+        target.getChildren().add(0, canvas);
     }
 
 
