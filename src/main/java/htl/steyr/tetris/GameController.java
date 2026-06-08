@@ -34,8 +34,6 @@ public class GameController implements Initializable {
     private int score = 1;
 
     private static GameController instance;
-    // increase/decrease affects falling speed
-    private final int BLOCK_VAL = 30;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -162,10 +160,6 @@ public class GameController implements Initializable {
         activeShape = null;
     }
 
-    private void updateShapes() {
-        activeShape.update(gametime.getTotalSeconds());
-    }
-
     /**
      * Spawns a new random shape, centers it horizontally, and adds
      * its blocks to the game pane. If the new shape overlaps placed
@@ -269,9 +263,9 @@ public class GameController implements Initializable {
     }
 
     /**
-     * @ToDo: Rotates the shape and checks if the result is valid (no overlap
-     *        with walls or placed blocks). If invalid, undoes the rotation
-     *        by rotating 3 more times.
+     * Rotates the shape and checks if the result is valid (no overlap
+     * with walls or placed blocks). If invalid, undoes the rotation
+     * by rotating 3 more times.
      */
     private void rotateShapeWithCollision() {
         if (activeShape == null) return;
@@ -345,6 +339,8 @@ public class GameController implements Initializable {
                 for (int col = 0; col < COLS; col++) {
                     grid[0][col] = null;
                     // update score for each block removed
+                    // increase/decrease affects falling speed
+                    int BLOCK_VAL = 30;
                     score += BLOCK_VAL;
                     scoreLabel.setText(Integer.toString(score));
                 }
