@@ -57,7 +57,7 @@ public class MainController implements Initializable {
     }
 
     /**
-     * gets the name of the fxml file that should be loaded to `contentPane` from the Button ID
+     * gets the name of the fxml file that should be loaded to the {@code contentPane} from the Button ID
      * and calls loadContentView with that value
      *
      * @param actionEvent clicked Button
@@ -72,7 +72,7 @@ public class MainController implements Initializable {
     }
 
     /**
-     * loads a fxml file in `contentPane`
+     * loads a fxml file in {@code contentPane} and plays music if needed
      *
      * @param view fxml file in /com/frontend/view/content/
      */
@@ -125,7 +125,7 @@ public class MainController implements Initializable {
     /**
      * if a loaded pane wants tho load something directly on the main-view
      *
-     * @return this
+     * @return {@code this}
      */
     public static MainController getInstance() {
         return instance;
