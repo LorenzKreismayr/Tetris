@@ -53,9 +53,8 @@ public class Shape {
             case SHAPE_T:
                 blocks.add(new Block(blockSize, 0, blockSize, color));
                 blocks.add(new Block(blockSize, blockSize, blockSize, color));
-                blocks.add(new Block(blockSize, blockSize * 2, blockSize, color));
-                blocks.add(new Block(0, blockSize * 2, blockSize, color));
-                blocks.add(new Block(blockSize * 2, blockSize * 2, blockSize, color));
+                blocks.add(new Block(0, blockSize, blockSize, color));
+                blocks.add(new Block(blockSize * 2, blockSize, blockSize, color));
                 break;
             case SHAPE_BLOCK_4x4:
                 blocks.add(new Block(0, 0, blockSize, color));
