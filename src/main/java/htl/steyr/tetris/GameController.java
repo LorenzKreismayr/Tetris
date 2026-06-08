@@ -75,10 +75,6 @@ public class GameController implements Initializable {
                 });
             }
         });
-
-        // @todo add start button
-        isRunning = true;
-        startGameLoop();
     }
 
     public void startGameLoop() {
