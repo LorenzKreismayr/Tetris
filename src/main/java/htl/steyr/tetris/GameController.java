@@ -67,8 +67,7 @@ public class GameController implements Initializable {
                         case W, UP:
                             rotateShapeWithCollision();
                             break;
-                        default:
-                            break;
+                        default: break;
                     }
                 });
             }
