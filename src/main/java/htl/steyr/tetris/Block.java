@@ -23,7 +23,6 @@ public class Block extends Rectangle {
         double newX = getX() + amount;
 
         if (newX >= 0 && (newX + getWidth()) <= boundX) {
-            System.out.println("[Update X] " + newX);
             setX(newX);
         }
     }
@@ -32,7 +31,6 @@ public class Block extends Rectangle {
         double newY = getY() + amount;
 
         if ((newY + getHeight()) <= boundY) {
-            System.out.println("[Update Y] " + newY);
             setY(newY);
         }
     }
