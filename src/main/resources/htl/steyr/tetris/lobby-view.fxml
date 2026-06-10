@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="586.0" prefWidth="823.0" styleClass="root" stylesheets="@css/lobby.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="htl.steyr.tetris.LobbyController">
+<AnchorPane prefHeight="586.0" prefWidth="823.0" styleClass="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="htl.steyr.tetris.LobbyController">
 
     <children>
         <VBox alignment="BOTTOM_CENTER" prefHeight="497.0" prefWidth="702.0" spacing="20" styleClass="lobby-background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

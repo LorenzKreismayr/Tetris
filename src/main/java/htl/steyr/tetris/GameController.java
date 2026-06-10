@@ -50,8 +50,6 @@ public class GameController implements Initializable {
         drawGrid(nextShapePane, 4, 4);
         spawnShape();
 
-        gamePane.setStyle("-fx-border-color: black;");
-
         gametime = new Gametime(gametimeLabel);
 
         gamePane.sceneProperty().addListener((observable, oldScene, newScene) -> {

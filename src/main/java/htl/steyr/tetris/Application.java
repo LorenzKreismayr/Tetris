@@ -6,12 +6,14 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
+        scene.getStylesheets().add(Objects.requireNonNull(Objects.requireNonNull(getClass().getResource("css/main.css")).toExternalForm()));
         stage.setResizable(false); // Das Fenster kann nicht in der Größe verändert werden
         stage.initStyle(StageStyle.UNDECORATED); //entfernt die Windows title bar (oberes band)
         stage.setTitle("Tetris!");
