@@ -14,6 +14,10 @@ public class Block extends Rectangle {
         setWidth(size);
         setFill(color);
 
+        // border
+        setStroke(Color.WHITE);
+        setStrokeWidth(1.0);
+
         // ja ka
         boundX = GameController.getInstance().gamePane.getPrefWidth();
         boundY = GameController.getInstance().gamePane.getPrefHeight();
