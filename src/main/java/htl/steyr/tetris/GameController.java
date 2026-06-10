@@ -144,10 +144,12 @@ public class GameController implements Initializable {
         for (Block block : activeShape.getBlocks()) {
             // Snap to nearest grid position
             double snappedY = Math.round(block.getY() / BLOCK_WIDTH) * BLOCK_WIDTH;
+            double snappedX = Math.round(block.getX() / BLOCK_WIDTH) * BLOCK_WIDTH;
+            block.setX(snappedX);
             block.setY(snappedY);
 
             int row = (int) (snappedY / BLOCK_WIDTH);
-            int col = (int) (block.getX() / BLOCK_WIDTH);
+            int col = (int) (snappedX / BLOCK_WIDTH);
 
             if (row >= 0 && row < ROWS && col >= 0 && col < COLS) {
                 grid[row][col] = block;
