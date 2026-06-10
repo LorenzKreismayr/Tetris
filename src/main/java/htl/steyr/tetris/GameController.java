@@ -42,6 +42,12 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        for(int row = 0; row < ROWS; row++) {
+            for(int col = 0; col < COLS; col++) {
+                grid[row][col] = null;
+            }
+        }
         instance = this;
 
         int BLOCKS_PER_ROW = 10;
@@ -217,28 +223,38 @@ public class GameController implements Initializable {
      * can move, the shape is moved. </p>
      */
     private void moveShapeHorizontal(double amount) {
-        if (activeShape == null) return;
+        try {
+            if (activeShape == null) return;
 
-        for (Block block : activeShape.getBlocks()) {
-            double newX = block.getX() + amount;
+            for (Block block : activeShape.getBlocks()) {
+                double newX = block.getX() + amount;
+                System.out.println("Trying to move block to X=" + newX);
+                System.out.println("position" + (int) (newX / BLOCK_WIDTH) + " col" + (int) (block.getY() / BLOCK_WIDTH) + " row");
+                System.out.println("in grid:" + grid[(int) (block.getY() / BLOCK_WIDTH)][(int) (newX / BLOCK_WIDTH)]);
 
-            // Wall check
-            if (newX < 0 || newX + BLOCK_WIDTH > gamePane.getPrefWidth()) {
-                return;
-            }
-
-            // Grid check
-            int col = (int) (newX / BLOCK_WIDTH);
-            int row = (int) (block.getY() / BLOCK_WIDTH);
-
-            if (row >= 0 && row < ROWS && col >= 0 && col < COLS) {
-                if (grid[row][col] != null) {
+                // Wall check
+                if (newX < 0 || newX + BLOCK_WIDTH > gamePane.getPrefWidth()) {
                     return;
                 }
-            }
-        }
 
-        activeShape.moveHorizontal(amount);
+                // Grid check
+                int col = (int) (newX / BLOCK_WIDTH); // which column would the block enter?
+                int row = (int) (block.getY() / BLOCK_WIDTH) + 1; // which row is the block currently in?
+
+                if (row >= 0 && row < ROWS && col >= 0 && col < COLS) {
+                    if (grid[row][col] != null) {
+                        return;
+                    }
+                }
+            }
+
+            activeShape.moveHorizontal(amount);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            // This can happen if the shape is partially outside the grid (e.g. during rotation).
+            // We can safely ignore it here since the wall checks should prevent it.
+            System.out.println("Caught ArrayIndexOutOfBoundsException: " + e.getMessage());
+            System.out.println("One block of the shape is outside the grid. This can happen during rotation near walls. Ignoring this exception.");
+        }
     }
 
     /**
@@ -259,7 +275,7 @@ public class GameController implements Initializable {
             }
 
             // Grid check
-            int row = (int) (newY / BLOCK_WIDTH);
+            int row = (int) (newY / BLOCK_WIDTH) +1; // which row would the block enter?
             int col = (int) (block.getX() / BLOCK_WIDTH);
 
             if (row >= 0 && row < ROWS && col >= 0 && col < COLS) {
