@@ -204,7 +204,7 @@ public class GameController implements Initializable {
             int col = (int) (block.getX() / BLOCK_WIDTH);
             if (row >= 0 && row < ROWS && col >= 0 && col < COLS && grid[row][col] != null) {
                 isRunning = false;
-                // dont show the next shape if the game is over
+                // don't show the next shape if the game is over
                 // because it gets placed incorrect
                 nextShapePane.getChildren().clear();
                 return;
@@ -250,7 +250,7 @@ public class GameController implements Initializable {
 
             activeShape.moveHorizontal(amount);
         } catch (ArrayIndexOutOfBoundsException e) {
-            // This can happen if the shape is partially outside the grid (e.g. during rotation).
+            // This can happen if the shape is partially outside the grid.
             // We can safely ignore it here since the wall checks should prevent it.
             System.out.println("Caught ArrayIndexOutOfBoundsException: " + e.getMessage());
             System.out.println("One block of the shape is outside the grid. This can happen during rotation near walls. Ignoring this exception.");
@@ -261,7 +261,7 @@ public class GameController implements Initializable {
      * Checks if the active shape can move down by the given amount without
      * hitting the floor or a placed block. If all blocks can move, the shape is moved.
      *
-     * @param amount --> describes the amount of pixels (which is the BLOCK_WIDTH) the shape should move down
+     * @param amount --> describes the number of pixels (which is the BLOCK_WIDTH) the shape should move down
      */
     public void moveShapeDown(double amount) {
         if (activeShape == null) return;
@@ -381,7 +381,7 @@ public class GameController implements Initializable {
 
     /**
      * Draws a grid on the game pane to visualize the Tetris playing field.
-     * The canvas is added as the first child of the game pane so it stays
+     * The canvas is added as the first child of the game pane, so it stays
      * behind all blocks.
      */
     private void drawGrid(Pane target, int rows, int cols) {
@@ -417,7 +417,7 @@ public class GameController implements Initializable {
             gametime.start();
             gameStateButton.setText("Pause");
 
-            // Nur starten wenn kein Thread läuft
+            // only start a new game loop if there isn't already one running
             if (gameLoop == null || !gameLoop.isAlive()) {
                 startGameLoop();
             }
