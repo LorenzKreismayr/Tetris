@@ -2,6 +2,7 @@ package htl.steyr.tetris;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -16,7 +17,8 @@ public class Application extends javafx.application.Application {
         scene.getStylesheets().add(Objects.requireNonNull(Objects.requireNonNull(getClass().getResource("css/main.css")).toExternalForm()));
         stage.setResizable(false); // Das Fenster kann nicht in der Größe verändert werden
         stage.initStyle(StageStyle.UNDECORATED); //entfernt die Windows title bar (oberes band)
-        stage.setTitle("Tetris!");
+        Image image = new Image("htl/steyr/tetris/images/logo_tetris.png");
+        stage.getIcons().add(image);
         stage.setScene(scene);
         stage.show();
     }
