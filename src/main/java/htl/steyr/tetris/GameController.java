@@ -55,6 +55,7 @@ public class GameController implements Initializable {
         gamePane.sceneProperty().addListener((observable, oldScene, newScene) -> {
             if (newScene != null) {
                 newScene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+                    if (!isRunning) return;
                     if (activeShape == null) return;
                     switch (event.getCode()) {
                         case A, LEFT:   // move every block of the shape to the left by 1 block width (if possible)
