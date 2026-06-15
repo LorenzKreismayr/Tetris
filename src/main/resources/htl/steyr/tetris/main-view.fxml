@@ -14,8 +14,8 @@
                 <ToggleButton id="lobby-view.fxml" mnemonicParsing="false" onAction="#onMenuBarButtonClicked" styleClass="button-group" text="Home" />
                 <ToggleButton id="game-view.fxml" mnemonicParsing="false" onAction="#onMenuBarButtonClicked" styleClass="button-group" text="Reset" />
             <ToggleButton fx:id="exitButton" mnemonicParsing="false" onAction="#onexitButtonClicked" styleClass="button-group" text="Exit" />
-            <Label fx:id="displayUsernameLabel" text="Label" />
-            <Label fx:id="displayHighscoreLabel" text="Label" />
+            <Label fx:id="displayUsernameLabel"/>
+            <Label fx:id="displayHighscoreLabel"/>
                 <Region id="groupIgnore" prefHeight="30.0" prefWidth="127.0" HBox.hgrow="ALWAYS" />
             <Slider fx:id="volumeSlider" prefHeight="14.0" prefWidth="78.0" visible="false" />
             <ToggleButton id="game-view.fxml" mnemonicParsing="false" onAction="#onVolumeButtonClicked" styleClass="button-group" text="📢" />
