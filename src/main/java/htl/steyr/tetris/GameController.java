@@ -45,6 +45,7 @@ public class GameController implements Initializable {
         for(int row = 0; row < ROWS; row++) {
             for(int col = 0; col < COLS; col++) {
                 grid[row][col] = null;
+                System.out.println(grid[row][col]);
             }
         }
         instance = this;
@@ -80,6 +81,9 @@ public class GameController implements Initializable {
                 });
             }
         });
+
+
+        System.out.println(gamePane.getPrefHeight() + " "+ gamePane.getPrefWidth());
     }
 
     public void startGameLoop() {
@@ -118,11 +122,15 @@ public class GameController implements Initializable {
      * hitting the floor or an already placed block.
      */
     private boolean canMoveDown() {
+
         for (Block block : activeShape.getBlocks()) {
-            double newBottom = block.getY() + BLOCK_WIDTH + 1;
+            double newBottom = block.getY() + BLOCK_WIDTH +10;
 
             // Floor check
-            if (newBottom > gamePane.getPrefHeight()) {
+            if (newBottom >= gamePane.getPrefHeight()) {
+                for(Block blocks : activeShape.getBlocks()){
+                    System.out.println(blocks.getY() +" + "+ BLOCK_WIDTH +"+ 1");
+                }
                 return false;
             }
 
@@ -180,7 +188,7 @@ public class GameController implements Initializable {
         } else {
             // set next active and generate one shape
             activeShape = nextShape;
-            nextShapePane.getChildren().remove(nextShape);
+            nextShapePane.getChildren().remove(nextShape == null ? activeShape : nextShape);
             nextShape = new Shape(randomType, BLOCK_WIDTH);
         }
 
