@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -22,6 +23,9 @@ public class MainController implements Initializable {
     private static MainController instance;
     protected final ToggleGroup menuBarToggleGroup = new ToggleGroup();
     public Slider volumeSlider;
+
+    public Label displayUsernameLabel;
+    public Label displayHighscoreLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -53,7 +57,7 @@ public class MainController implements Initializable {
         });
 
         // load default site
-        loadContentView("lobby-view.fxml");
+        loadContentView("login-view.fxml");
     }
 
     /**
@@ -116,6 +120,16 @@ public class MainController implements Initializable {
             System.out.printf("[%s] Could not find target fxml", src);
         }
 
+    }
+
+    public void setDisplayData(String username, String highscore) {
+        displayUsernameLabel.setText("Username: " + username);
+
+        if (highscore == null) {
+            displayHighscoreLabel.setText("");
+        } else {
+            displayHighscoreLabel.setText("Highscore: " + highscore);
+        }
     }
 
     private String getContentViewFolder() {
