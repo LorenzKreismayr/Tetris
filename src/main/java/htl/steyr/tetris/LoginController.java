@@ -15,7 +15,6 @@ public class LoginController {
     public PasswordField passwordPasswordField;
     public RadioButton saveDataButton;
     public Label passwordLabel;
-    public Label warningLabel;
 
     public static int score;
     public static String username;
@@ -26,11 +25,12 @@ public class LoginController {
         password = passwordPasswordField.getText();
 
         if (username.isEmpty()) {
-            warningLabel.setText("Username required!");
+            showWarningAlert("Username required!", "Please enter a username.");
             return;
         }
 
         if (!saveDataButton.isSelected()) {
+            MainController.getInstance().setDisplayData(username, null);
             warningLabel.setText("");
             MainController.getInstance().setDisplayData(username, "0");
             MainController.getInstance().loadContentView("lobby-view.fxml");
@@ -38,7 +38,7 @@ public class LoginController {
         }
 
         if (password.isEmpty()) {
-            warningLabel.setText("Password required!");
+            showWarningAlert("Password required!", "Please enter a password.");
             return;
         }
 
@@ -50,21 +50,34 @@ public class LoginController {
             score = Integer.parseInt(row[2]);
 
             if (dbPassword.equals(password)) {
-                warningLabel.setText("");
                 MainController.getInstance().setDisplayData(username, dbHighscore);
                 MainController.getInstance().loadContentView("lobby-view.fxml");
             } else {
-                warningLabel.setText("Wrong password!");
+                showWarningAlert("Wrong password!", "Please try again!");
             }
         } else {
             boolean signup = showSignupPopup();
             if (signup) {
                 saveNewUser(username, password);
-                warningLabel.setText("");
                 MainController.getInstance().setDisplayData(username, "0");
                 MainController.getInstance().loadContentView("lobby-view.fxml");
             }
         }
+
+    }
+
+    /**
+     * Shows a warning alert with the given title and message.
+     *
+     * @param title   the alert title
+     * @param message the alert content text
+     */
+    private void showWarningAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     private String[] findUserRow(String username) {

@@ -15,14 +15,13 @@
         <font>
             <Font name="Calisto MT Bold" size="30.0" />
         </font> </Button>
-      <TextField fx:id="usernameTextField" layoutX="294.0" layoutY="149.0" prefHeight="25.0" prefWidth="236.0" />
+      <TextField fx:id="usernameTextField" layoutX="294.0" layoutY="149.0" onAction="#onLoginButtonClicked" prefHeight="25.0" prefWidth="236.0" />
       <Label layoutX="294.0" layoutY="132.0" text="Username:" />
 
       <RadioButton fx:id="saveDataButton" layoutX="359.0" layoutY="194.0" mnemonicParsing="false" onAction="#onSaveDataButtonClicked" />
       <Label layoutX="294.0" layoutY="194.0" text="Save Data?" />
 
       <Label fx:id="passwordLabel" disable="true" layoutX="294.0" layoutY="231.0" text="Password:" />
-      <PasswordField fx:id="passwordPasswordField" disable="true" layoutX="293.0" layoutY="248.0" prefHeight="25.0" prefWidth="236.0" />
-      <Label fx:id="warningLabel" layoutX="240.0" layoutY="5.0" />
+      <PasswordField fx:id="passwordPasswordField" disable="true" layoutX="293.0" layoutY="248.0" onAction="#onLoginButtonClicked" prefHeight="25.0" prefWidth="236.0" />
     </children>
 </AnchorPane>
