@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="586.0" prefWidth="823.0" styleClass="root" stylesheets="@css/login.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="htl.steyr.tetris.LoginController">
+<AnchorPane fx:id="login_pane" prefHeight="586.0" prefWidth="823.0" styleClass="root" stylesheets="@css/login.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="htl.steyr.tetris.LoginController">
 
     <children>
         <Button fx:id="loginButton" layoutX="266.0" layoutY="398.0" mnemonicParsing="false" onAction="#onLoginButtonClicked" prefHeight="75.0" prefWidth="289.0" text="Log In" textFill="WHITE">

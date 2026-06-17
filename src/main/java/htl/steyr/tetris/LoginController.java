@@ -2,6 +2,7 @@ package htl.steyr.tetris;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -19,6 +20,9 @@ public class LoginController {
     public static int score;
     public static String username;
     public static String password;
+    public Label warningLabel;
+
+    public AnchorPane login_pane;
 
     public void onLoginButtonClicked(ActionEvent actionEvent) {
         username = usernameTextField.getText().trim();
