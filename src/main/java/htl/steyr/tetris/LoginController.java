@@ -30,8 +30,6 @@ public class LoginController {
         }
 
         if (!saveDataButton.isSelected()) {
-            MainController.getInstance().setDisplayData(username, null);
-            warningLabel.setText("");
             MainController.getInstance().setDisplayData(username, "0");
             MainController.getInstance().loadContentView("lobby-view.fxml");
             return;
