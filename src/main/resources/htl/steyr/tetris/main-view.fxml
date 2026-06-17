@@ -6,16 +6,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane styleClass="root" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="htl.steyr.tetris.MainController">
+<AnchorPane styleClass="root" stylesheets="@css/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="htl.steyr.tetris.MainController">
     <children>
         <HBox fx:id="menuBarHBox" layoutX="10.0" layoutY="10.0" prefHeight="30.0" styleClass="hbox" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
             <children>
                 <ToggleButton id="lobby-view.fxml" mnemonicParsing="false" onAction="#onMenuBarButtonClicked" styleClass="button-group" text="Home" />
                 <ToggleButton id="game-view.fxml" mnemonicParsing="false" onAction="#onMenuBarButtonClicked" styleClass="button-group" text="Reset" />
             <ToggleButton fx:id="exitButton" mnemonicParsing="false" onAction="#onexitButtonClicked" styleClass="button-group" text="Exit" />
-            <Label fx:id="displayUsernameLabel"/>
-            <Label fx:id="displayHighscoreLabel"/>
+            <Label fx:id="displayUsernameLabel">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+            <Label fx:id="displayHighscoreLabel">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
                 <Region id="groupIgnore" prefHeight="30.0" prefWidth="127.0" HBox.hgrow="ALWAYS" />
             <Slider fx:id="volumeSlider" prefHeight="14.0" prefWidth="78.0" visible="false" />
             <ToggleButton id="game-view.fxml" mnemonicParsing="false" onAction="#onVolumeButtonClicked" styleClass="button-group" text="📢" />

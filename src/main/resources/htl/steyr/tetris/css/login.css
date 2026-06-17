@@ -1,0 +1,7 @@
+#loginButton{
+    -fx-background-color: linear-gradient(to bottom right, #1496e9, #1b638f);
+    -fx-background-radius: 10px;
+    -fx-border-color: white;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
