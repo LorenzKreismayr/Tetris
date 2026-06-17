@@ -25,10 +25,12 @@ public class GameController implements Initializable {
     public Label scoreLabel;
     public Label gametimeLabel;
     public Button gameStateButton;
+    public Pane heldShapePane;
     private Gametime gametime;
 
     private Shape activeShape;
     private Shape nextShape;
+    private Shape heldShape;
 
     private volatile boolean isRunning = false;
 
@@ -58,6 +60,7 @@ public class GameController implements Initializable {
 
         drawGrid(gamePane, ROWS, COLS);
         drawGrid(nextShapePane, 4, 4);
+        drawGrid(heldShapePane, 4, 4);
         spawnShape();
 
         gametime = new Gametime(gametimeLabel);
@@ -79,6 +82,9 @@ public class GameController implements Initializable {
                             break;
                         case W, UP:     // rotates the shape 90 degrees clockwise (if possible)
                             rotateShapeWithCollision();
+                            break;
+                        case Q:
+                            toggleHold();
                             break;
                         default: break;
                     }
@@ -350,13 +356,11 @@ public class GameController implements Initializable {
         activeShape.moveVertical(amount);
     }
 
-
     /**
      * Rotates the shape and checks if the result is valid (no overlap
      * with walls or placed blocks). If invalid, undoes the rotation
      * by rotating 3 more times.
      */
-
     private void rotateShapeWithCollision() {
         if (activeShape == null) return;
 
@@ -393,6 +397,61 @@ public class GameController implements Initializable {
         }
     }
 
+    /**
+     * ether saves the active shape for later
+     * ore switches the active shape for the one being hold
+     */
+    private void toggleHold() {
+        if (activeShape == null) {
+            return;
+        }
+
+        if (heldShape == null) {
+            gamePane.getChildren().removeAll(activeShape.getBlocks());
+
+            heldShape = activeShape;
+            activeShape = null;
+
+            spawnShape();
+            heldShapePane.getChildren().addAll(heldShape.getBlocks());
+        } else {
+            gamePane.getChildren().removeAll(activeShape.getBlocks());
+            heldShapePane.getChildren().removeAll(heldShape.getBlocks());
+
+            Shape tmp = heldShape;
+            heldShape = activeShape;
+            activeShape = tmp;
+
+            gamePane.getChildren().addAll(activeShape.getBlocks());
+            heldShapePane.getChildren().addAll(heldShape.getBlocks());
+
+            // only here since spawnShape positions it itself
+            double offsetX = BLOCK_WIDTH * 4;
+            for (Block block : activeShape.getBlocks()) {
+                block.setX(block.getX() + offsetX);
+            }
+        }
+
+        // readjust position of held shape for display
+        double hOffsetY = heldShape.getBlocks().get(0).getY();
+        double hOffsetX = heldShape.getBlocks().get(0).getX();
+
+        for (Block block : heldShape.getBlocks()) {
+            // if a block is higher up
+            if (block.getY() < hOffsetY) {
+                hOffsetY = block.getY();
+            }
+            // if a block is more to the left
+            if (block.getX() < hOffsetX) {
+                hOffsetX = block.getX();
+            }
+        }
+
+        for (Block block : heldShape.getBlocks()) {
+            block.setY(block.getY() - hOffsetY);
+            block.setX(block.getX() - hOffsetX + BLOCK_WIDTH);
+        }
+    }
 
     /**
      * Checks all rows from bottom to top. Full rows are cleared:
@@ -467,7 +526,6 @@ public class GameController implements Initializable {
         //add behind all blocks
         target.getChildren().add(0, canvas);
     }
-
 
     public static GameController getInstance() {
         return instance;

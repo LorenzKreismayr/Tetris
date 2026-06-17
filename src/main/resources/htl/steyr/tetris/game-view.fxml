@@ -12,34 +12,35 @@
     <children>
         <Pane fx:id="gamePane" layoutX="14.0" layoutY="14.0" maxHeight="560.0" maxWidth="400.0" minHeight="560.0" minWidth="400.0" prefHeight="560.0" prefWidth="400.0" />
         <Pane fx:id="nextShapePane" layoutX="428.0" layoutY="14.0" prefHeight="160.0" prefWidth="160.0" AnchorPane.topAnchor="14.0" />
-        <Text layoutX="436.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score:">
+        <Text layoutX="616.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score:">
             <font>
                 <Font size="22.0" />
             </font>
         </Text>
-        <Label fx:id="scoreLabel" layoutX="501.0" layoutY="189.0" prefHeight="30.0" prefWidth="104.0" text="x">
+        <Label fx:id="scoreLabel" layoutX="681.0" layoutY="32.0" prefHeight="30.0" prefWidth="104.0" text="x">
             <font>
                 <Font size="22.0" />
             </font>
         </Label>
-        <Button fx:id="gameStateButton" layoutX="433.0" layoutY="273.0" mnemonicParsing="false" onAction="#onGameStateButtonClicked" prefHeight="40.0" prefWidth="150.0" text="Spiel starten">
+        <Button fx:id="gameStateButton" layoutX="613.0" layoutY="116.0" mnemonicParsing="false" onAction="#onGameStateButtonClicked" prefHeight="40.0" prefWidth="150.0" text="Spiel starten">
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Button>
-      <TextArea editable="false" layoutX="428.0" layoutY="500.0" prefHeight="72.0" prefWidth="368.0" text="A  |  bewegt den Block nach Links&#10;D  |  bewegt den Block nach Rechts&#10;S  |  bewegt den Block schneller nach unten&#10;W  |  rotiert den Block im Uhrzeigersinn">
+      <TextArea editable="false" layoutX="428.0" layoutY="484.0" prefHeight="88.0" prefWidth="368.0" text="A  |  bewegt den Block nach Links&#10;D  |  bewegt den Block nach Rechts&#10;S  |  bewegt den Block schneller nach unten&#10;W  |  rotiert den Block im Uhrzeigersinn&#10;Q  |  speichert den Block zwischen">
          <font>
             <Font name="Consolas" size="12.0" />
          </font>
       </TextArea>
-      <Text layoutX="436.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spielzeit:">
+      <Text layoutX="616.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spielzeit:">
          <font>
             <Font size="22.0" />
          </font>
       </Text>
-      <Label fx:id="gametimeLabel" layoutX="529.0" layoutY="228.0" prefHeight="30.0" prefWidth="104.0" text="00:00">
+      <Label fx:id="gametimeLabel" layoutX="709.0" layoutY="71.0" prefHeight="30.0" prefWidth="104.0" text="00:00">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
+      <Pane fx:id="heldShapePane" layoutX="428.0" layoutY="190.0" prefHeight="160.0" prefWidth="160.0" />
     </children>
 </AnchorPane>

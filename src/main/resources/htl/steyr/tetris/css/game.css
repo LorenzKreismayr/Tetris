@@ -1,4 +1,4 @@
-#gamePane, #nextShapePane {
+#gamePane, #nextShapePane, #heldShapePane {
     -fx-background-color: black;
     -fx-border-color: white;
     -fx-border-width: 3px;
