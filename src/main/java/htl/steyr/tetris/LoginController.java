@@ -20,7 +20,6 @@ public class LoginController {
     public static int score;
     public static String username;
     public static String password;
-    public Label warningLabel;
 
     public AnchorPane login_pane;
 
@@ -33,7 +32,7 @@ public class LoginController {
             return;
         }
 
-        if (!saveDataButton.isSelected()) {
+        if (!saveDataButton.isSelected()){
             MainController.getInstance().setDisplayData(username, "0");
             MainController.getInstance().loadContentView("lobby-view.fxml");
             return;
