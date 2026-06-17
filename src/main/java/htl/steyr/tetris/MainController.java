@@ -126,7 +126,7 @@ public class MainController implements Initializable {
         displayUsernameLabel.setText("Username: " + username);
 
         if (highscore == null) {
-            displayHighscoreLabel.setText("");
+            displayHighscoreLabel.setText("Highscore: 0");
         } else {
             displayHighscoreLabel.setText("Highscore: " + highscore);
         }

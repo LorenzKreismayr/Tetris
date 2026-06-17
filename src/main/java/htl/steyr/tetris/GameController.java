@@ -1,6 +1,5 @@
 package htl.steyr.tetris;
 
-import com.sun.tools.javac.Main;
 import htl.steyr.tetris.gametime.Gametime;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -13,9 +12,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
-import java.util.Random;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class GameController implements Initializable {
     public Pane gamePane;
@@ -36,7 +38,7 @@ public class GameController implements Initializable {
     private final Block[][] grid = new Block[ROWS][COLS];
 
     private double BLOCK_WIDTH;
-    private int score = 1;
+    private int score = 0;
 
     private static GameController instance;
 
@@ -109,14 +111,66 @@ public class GameController implements Initializable {
                     // ~60 updates / sek
                     Thread.sleep(16);
                 }
-            } catch (InterruptedException e) {
+
+                //Game Over:
+                int finalScore = Integer.parseInt(scoreLabel.getText());
+                if (LoginController.score < finalScore) {
+                    saveNewHighscore(finalScore, LoginController.username, LoginController.password);
+
+                    LoginController.score = finalScore;
+
+                    Platform.runLater(() -> {
+                        MainController.getInstance().setDisplayData(LoginController.username, String.valueOf(finalScore));
+                    });
+                }
+
+
+            } catch (InterruptedException | FileNotFoundException e) {
                 e.printStackTrace();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             } finally {
                 gametime.stop();
             }
         });
         gameLoop.setDaemon(true);
         gameLoop.start();
+    }
+
+    private void saveNewHighscore(int score, String username, String password) throws IOException {
+        File file = new File("userData.csv");
+        if (!file.exists()) return;
+
+        List<String> lines = new ArrayList<>();
+        boolean userFound = false;
+
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(";");
+
+                if (parts.length == 3 && parts[0].equalsIgnoreCase(username)) {
+                    parts[2] = Integer.toString(score);
+
+                    line = username + ";" + password + ";" + score;
+                    userFound = true;
+                }
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (!userFound) {
+            System.out.println("User not found");
+            return;
+        }
+
+        try (FileWriter writer = new FileWriter(file, false)) {
+            for (String updatedLine : lines) {
+                writer.write(updatedLine + "\n");
+            }
+        }
     }
 
     /**

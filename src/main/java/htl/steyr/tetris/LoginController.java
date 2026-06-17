@@ -17,9 +17,13 @@ public class LoginController {
     public Label passwordLabel;
     public Label warningLabel;
 
+    public static int score;
+    public static String username;
+    public static String password;
+
     public void onLoginButtonClicked(ActionEvent actionEvent) {
-        String username = usernameTextField.getText().trim();
-        String password = passwordPasswordField.getText();
+        username = usernameTextField.getText().trim();
+        password = passwordPasswordField.getText();
 
         if (username.isEmpty()) {
             warningLabel.setText("Username required!");
@@ -28,7 +32,7 @@ public class LoginController {
 
         if (!saveDataButton.isSelected()) {
             warningLabel.setText("");
-            MainController.getInstance().setDisplayData(username, null);
+            MainController.getInstance().setDisplayData(username, "0");
             MainController.getInstance().loadContentView("lobby-view.fxml");
             return;
         }
@@ -43,6 +47,7 @@ public class LoginController {
         if (row != null) {
             String dbPassword = row[1];
             String dbHighscore = row[2];
+            score = Integer.parseInt(row[2]);
 
             if (dbPassword.equals(password)) {
                 warningLabel.setText("");
