@@ -23,6 +23,5 @@
 
       <Label fx:id="passwordLabel" disable="true" layoutX="294.0" layoutY="231.0" text="Password:" />
       <PasswordField fx:id="passwordPasswordField" disable="true" layoutX="293.0" layoutY="248.0" onAction="#onLoginButtonClicked" prefHeight="25.0" prefWidth="236.0" />
-      <Label fx:id="warningLabel" layoutX="240.0" layoutY="5.0" />
     </children>
 </AnchorPane>
