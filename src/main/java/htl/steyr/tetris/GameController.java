@@ -20,6 +20,8 @@ import java.net.URL;
 import java.util.*;
 
 public class GameController implements Initializable {
+
+    // fix objects on the gamepane
     public Pane gamePane;
     public Pane nextShapePane;
     public Label scoreLabel;
@@ -28,13 +30,17 @@ public class GameController implements Initializable {
     public Pane heldShapePane;
     private Gametime gametime;
 
+    // all objects that can be controlled
     private Shape activeShape;
     private Shape nextShape;
     private Shape heldShape;
 
+    // this boolean prevents the ability to switch with the heldshape invinite times at once
     private volatile boolean isRunning = false;
 
     private Thread gameLoop;
+
+    // for defining the grid on the gamepane (also for the blocks if they can be placed on certain positions)
     private static final int ROWS = 14;
     private static final int COLS = 10;
     private final Block[][] grid = new Block[ROWS][COLS];
