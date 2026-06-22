@@ -8,6 +8,10 @@ public class Music {
     private static MediaPlayer currentPlayer;
     private static boolean stopped = false;
 
+    /**
+     * Methode to start the music
+     * @param path is for the path of the song files
+     */
     public static void play(String path) {
 
         stop();
@@ -22,6 +26,9 @@ public class Music {
         currentPlayer.play();
     }
 
+    /**
+     * Methode to stop the stop Song
+     */
     public static void stop() {
         if (currentPlayer != null) {
             currentPlayer.stop();
@@ -29,6 +36,9 @@ public class Music {
         }
     }
 
+    /**
+     * Methode to pause the current song
+     */
     public static void pause() {
         if (currentPlayer != null) {
             currentPlayer.pause();
@@ -36,6 +46,9 @@ public class Music {
         }
     }
 
+    /**
+     * Methode to continue the current Song
+     */
     public static void resume() {
         if (currentPlayer != null && stopped) {
             currentPlayer.play();
@@ -43,12 +56,20 @@ public class Music {
         }
     }
 
+    /**
+     * Setter fot the volume of the music linked with the music slider
+     * @param volume
+     */
     public static void setVolume(double volume) {
         if (currentPlayer != null) {
             currentPlayer.setVolume(volume);
         }
     }
 
+    /**
+     * Getter fot the volume of the music linked with the music slider
+     * Standard Value is 0,5
+     */
     public static double getVolume() {
         if(currentPlayer != null){
             return currentPlayer.getVolume();

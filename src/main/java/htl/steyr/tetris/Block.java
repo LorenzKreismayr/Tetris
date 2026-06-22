@@ -23,6 +23,9 @@ public class Block extends Rectangle {
         boundY = GameController.getInstance().gamePane.getPrefHeight();
     }
 
+    /**
+     * Methode to move the block to the side
+     */
     public void moveHorizontal(double amount) {
         double newX = getX() + amount;
 
@@ -31,6 +34,9 @@ public class Block extends Rectangle {
         }
     }
 
+    /**
+     * Methode to move the block down
+     */
     public void moveVertical(double amount) {
         double newY = getY() + amount;
 
