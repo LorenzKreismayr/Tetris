@@ -35,19 +35,24 @@ public class GameController implements Initializable {
     private Shape nextShape;
     private Shape heldShape;
 
-    // this boolean prevents the ability to switch with the heldshape invinite times at once
-    private volatile boolean isRunning = false;
 
+    //main thread for the game
     private Thread gameLoop;
+    private volatile boolean isRunning = false;
 
     // for defining the grid on the gamepane (also for the blocks if they can be placed on certain positions)
     private static final int ROWS = 14;
     private static final int COLS = 10;
     private final Block[][] grid = new Block[ROWS][COLS];
-
     private double BLOCK_WIDTH;
+
+    /**
+     * this is the score that increases by destroying rows --> shown in the {@code scoreLabel}
+     *
+     */
     private int score = 0;
 
+    // this boolean prevents the ability to switch with the heldshape invinite times at once
     private boolean isswitched = false;
 
     private static GameController instance;

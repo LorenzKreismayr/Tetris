@@ -1,0 +1,65 @@
+.root {
+    -fx-background-color: linear-gradient(from 100% 100% to 0% 0%,
+        #140000 0%,
+        #1d70a4 40%,
+        #1497ea 70%);
+    -fx-alignment: center;
+}
+
+.label {
+    -fx-text-fill: white;
+    -fx-font-family: "Calisto MT";
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-alignment: center;
+}
+
+#scoreListView {
+    -fx-background-color: black;
+    -fx-border-color: white;
+    -fx-border-width: 3px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+#scoreListView .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-family: "Courier New", monospace;
+    -fx-font-size: 13px;
+    -fx-alignment: center;
+    -fx-padding: 6px 10px;
+}
+
+#scoreListView .list-cell:odd {
+    -fx-background-color: rgba(20, 0, 0, 0.4);
+}
+
+#scoreListView .list-cell:even {
+    -fx-background-color: rgba(27, 99, 143, 0.25);
+}
+
+#scoreListView .list-cell:selected {
+    -fx-background-color: linear-gradient(to bottom right, #1496e9, #1b638f);
+    -fx-text-fill: white;
+}
+
+#scoreListView .list-cell:hover {
+    -fx-background-color: rgba(20, 150, 233, 0.3);
+}
+
+#scoreListView .scroll-bar {
+    -fx-background-color: #140000;
+}
+
+#scoreListView .scroll-bar .track {
+    -fx-background-color: #140000;
+    -fx-border-color: #1b638f;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+#scoreListView .scroll-bar .thumb {
+    -fx-background-color: linear-gradient(to bottom right, #1496e9, #1b638f);
+    -fx-background-radius: 5px;
+}
