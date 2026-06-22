@@ -46,6 +46,7 @@ public class MainController implements Initializable {
             }
         });
 
+        // set the Range of the slider between 0 and 100
         volumeSlider.setMin(0);
         volumeSlider.setMax(100);
 
