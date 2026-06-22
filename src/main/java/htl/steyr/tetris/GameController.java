@@ -42,6 +42,8 @@ public class GameController implements Initializable {
     private double BLOCK_WIDTH;
     private int score = 0;
 
+    private boolean isswitched = false;
+
     private static GameController instance;
 
     @Override
@@ -85,6 +87,7 @@ public class GameController implements Initializable {
                             break;
                         case Q:
                             toggleHold();
+                            isswitched = true;
                             break;
                         default: break;
                     }
@@ -119,7 +122,7 @@ public class GameController implements Initializable {
                 }
 
                 //Game Over:
-                int finalScore = Integer.parseInt(scoreLabel.getText());
+                int finalScore = Integer.parseInt(Objects.equals(scoreLabel.getText(), "x") ? "0" : scoreLabel.getText());
                 if (LoginController.score < finalScore) {
                     saveNewHighscore(finalScore, LoginController.username, LoginController.password);
 
@@ -229,6 +232,7 @@ public class GameController implements Initializable {
                 grid[row][col] = block;
             }
         }
+        isswitched = false;
 
         activeShape.stopmovement();
         activeShape = null;
@@ -402,7 +406,7 @@ public class GameController implements Initializable {
      * ore switches the active shape for the one being hold
      */
     private void toggleHold() {
-        if (activeShape == null) {
+        if (activeShape == null || isswitched) {
             return;
         }
 
