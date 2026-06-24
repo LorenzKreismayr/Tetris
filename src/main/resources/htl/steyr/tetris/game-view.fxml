@@ -26,7 +26,7 @@
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Button>
-      <TextArea editable="false" layoutX="428.0" layoutY="484.0" prefHeight="88.0" prefWidth="368.0" text="A  |  bewegt den Block nach Links&#10;D  |  bewegt den Block nach Rechts&#10;S  |  bewegt den Block schneller nach unten&#10;W  |  rotiert den Block im Uhrzeigersinn&#10;Q  |  speichert den Block zwischen&#10;C  |  Harddrop">
+      <TextArea editable="false" layoutX="428.0" layoutY="470.0" prefHeight="102.0" prefWidth="368.0" text="A  |  bewegt den Block nach Links&#10;D  |  bewegt den Block nach Rechts&#10;S  |  bewegt den Block schneller nach unten&#10;W  |  rotiert den Block im Uhrzeigersinn&#10;Q  |  speichert den Block zwischen&#10;C  |  Harddrop">
          <font>
             <Font name="Consolas" size="12.0" />
          </font>
