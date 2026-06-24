@@ -117,12 +117,54 @@ public class GameController implements Initializable {
     private void dropinstant(double amount) {
         if (activeShape == null) return;
 
-        double prevY;
-        do {
-            prevY = activeShape.getBlocks().get(0).getY();
-            moveShapeDown(amount);
-        } while (activeShape.getBlocks().get(0).getY() != prevY);
+        // Determine how many rows the shape can drop before any of its blocks
+        // would hit the floor or an occupied grid cell. We compute the number
+        // of free rows for each block and take the minimum.
+        int minDropRows = Integer.MAX_VALUE;
 
+        for (Block block : activeShape.getBlocks()) {
+            // Determine the column of this block
+            int col = (int) (block.getX() / BLOCK_WIDTH);
+
+            // Determine the current row of this block (rounded to nearest)
+            int currentRow = (int) Math.round(block.getY() / BLOCK_WIDTH);
+
+            // If the block is outside the grid horizontally, treat floor as limit
+            if (col < 0 || col >= COLS) {
+                int dropRows = ROWS - 1 - currentRow;
+                minDropRows = Math.min(minDropRows, Math.max(dropRows, 0));
+                continue;
+            }
+
+            // Search downward for the first occupied cell in this column
+            int r = currentRow + 1;
+            while (r < ROWS && grid[r][col] == null) {
+                r++;
+            }
+
+            // If we found an occupied cell at r, the block can land at r-1.
+            // If none found, it can land at ROWS-1.
+            int landingRow = (r < ROWS) ? r - 1 : ROWS - 1;
+            int dropRows = landingRow - currentRow;
+
+            // Ensure non-negative
+            dropRows = Math.max(dropRows, 0);
+            minDropRows = Math.min(minDropRows, dropRows);
+        }
+
+        // If minDropRows is zero or still MAX_VALUE (shouldn't happen), do nothing
+        if (minDropRows == Integer.MAX_VALUE || minDropRows <= 0) {
+            // If the shape can't move down, place it immediately
+            placeShape();
+            checkAndClearRows();
+            spawnShape();
+            return;
+        }
+
+        // Move the active shape down by the computed number of rows
+        activeShape.moveVertical(minDropRows * amount);
+
+        // Snap & finalize
         placeShape();
         checkAndClearRows();
         spawnShape();
