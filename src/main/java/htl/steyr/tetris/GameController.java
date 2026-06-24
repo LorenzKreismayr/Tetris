@@ -117,9 +117,33 @@ public class GameController implements Initializable {
     private void dropinstant(double amount) {
         if (activeShape == null) return;
 
-        // Determine how many rows the shape can drop before any of its blocks
-        // would hit the floor or an occupied grid cell. We compute the number
-        // of free rows for each block and take the minimum.
+
+        int minDropRows = getMinDropRows();
+
+        // If minDropRows is zero or still MAX_VALUE (shouldn't happen), do nothing
+        if (minDropRows == Integer.MAX_VALUE || minDropRows <= 0) {
+            // If the shape can't move down, place it immediately
+            placeShape();
+            checkAndClearRows();
+            spawnShape();
+            return;
+        }
+
+        // Move the active shape down by the computed number of rows
+        activeShape.moveVertical(minDropRows * amount);
+
+        // Snap & finalize
+        placeShape();
+        checkAndClearRows();
+        spawnShape();
+    }
+
+    /**
+     * Determine how many rows the shape can drop before any of its blocks
+     * hit the floor or an occupied grid cell. We compute the number
+     * of free rows for each block and take the minimum
+     */
+    private int getMinDropRows() {
         int minDropRows = Integer.MAX_VALUE;
 
         for (Block block : activeShape.getBlocks()) {
@@ -151,23 +175,7 @@ public class GameController implements Initializable {
             dropRows = Math.max(dropRows, 0);
             minDropRows = Math.min(minDropRows, dropRows);
         }
-
-        // If minDropRows is zero or still MAX_VALUE (shouldn't happen), do nothing
-        if (minDropRows == Integer.MAX_VALUE || minDropRows <= 0) {
-            // If the shape can't move down, place it immediately
-            placeShape();
-            checkAndClearRows();
-            spawnShape();
-            return;
-        }
-
-        // Move the active shape down by the computed number of rows
-        activeShape.moveVertical(minDropRows * amount);
-
-        // Snap & finalize
-        placeShape();
-        checkAndClearRows();
-        spawnShape();
+        return minDropRows;
     }
 
     public void startGameLoop() {
