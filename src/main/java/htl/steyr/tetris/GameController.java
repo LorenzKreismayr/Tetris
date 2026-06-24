@@ -60,8 +60,8 @@ public class GameController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        for(int row = 0; row < ROWS; row++) {
-            for(int col = 0; col < COLS; col++) {
+        for (int row = 0; row < ROWS; row++) {
+            for (int col = 0; col < COLS; col++) {
                 grid[row][col] = null;
                 System.out.println(grid[row][col]);
             }
@@ -100,14 +100,32 @@ public class GameController implements Initializable {
                             toggleHold();
                             isswitched = true;
                             break;
-                        default: break;
+                        case C:
+                            dropinstant(BLOCK_WIDTH);
+                        default:
+                            break;
                     }
                 });
             }
         });
 
 
-        System.out.println(gamePane.getPrefHeight() + " "+ gamePane.getPrefWidth());
+        System.out.println(gamePane.getPrefHeight() + " " + gamePane.getPrefWidth());
+    }
+
+    //is placing the shape on the bottom instantly
+    private void dropinstant(double amount) {
+        if (activeShape == null) return;
+
+        double prevY;
+        do {
+            prevY = activeShape.getBlocks().get(0).getY();
+            moveShapeDown(amount);
+        } while (activeShape.getBlocks().get(0).getY() != prevY);
+
+        placeShape();
+        checkAndClearRows();
+        spawnShape();
     }
 
     public void startGameLoop() {
@@ -200,12 +218,12 @@ public class GameController implements Initializable {
     private boolean canMoveDown() {
 
         for (Block block : activeShape.getBlocks()) {
-            double newBottom = block.getY() + BLOCK_WIDTH +10;
+            double newBottom = block.getY() + BLOCK_WIDTH + 10;
 
             // Floor check
             if (newBottom >= gamePane.getPrefHeight()) {
-                for(Block blocks : activeShape.getBlocks()){
-                    System.out.println(blocks.getY() +" + "+ BLOCK_WIDTH +"+ 1");
+                for (Block blocks : activeShape.getBlocks()) {
+                    System.out.println(blocks.getY() + " + " + BLOCK_WIDTH + "+ 1");
                 }
                 return false;
             }
@@ -358,7 +376,7 @@ public class GameController implements Initializable {
             }
 
             // Grid check
-            int row = (int) (newY / BLOCK_WIDTH) +1; // which row would the block enter?
+            int row = (int) (newY / BLOCK_WIDTH) + 1; // which row would the block enter?
             int col = (int) (block.getX() / BLOCK_WIDTH);
 
             if (row >= 0 && row < ROWS && col >= 0 && col < COLS) {
