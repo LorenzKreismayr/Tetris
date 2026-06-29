@@ -10,6 +10,7 @@ public class Shape {
     private final List<Block> blocks = new ArrayList<>();
     private boolean updateBlocks = true;
 
+    // List of possible colors that are randomly assigned to each new shape
     private final List<Color> colors = List.of(
             new Color(0.72, 0.49, 0.04, 1.0),
             new Color(0.98, 0.44, 0.05, 1.0),
@@ -29,8 +30,10 @@ public class Shape {
     );
 
     public Shape(ShapeType type, double blockSize) {
+        // Randomly choose a color for the new shape
         Color color = colors.get(new Random().nextInt(colors.size()));
 
+        // Create the blocks for the selected shape
         switch (type) {
             case SHAPE_I:
                 blocks.add(new Block(0, 0, blockSize, color));
