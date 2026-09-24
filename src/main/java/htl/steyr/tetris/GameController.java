@@ -28,6 +28,7 @@ public class GameController implements Initializable {
     public Label gametimeLabel;
     public Button gameStateButton;
     public Pane heldShapePane;
+    public Label pauseCountLabel;
     private Gametime gametime;
 
     // all objects that can be controlled
@@ -39,6 +40,7 @@ public class GameController implements Initializable {
     //main thread for the game
     private Thread gameLoop;
     private volatile boolean isRunning = false;
+    private volatile boolean gameOver = false;
 
     // for defining the grid on the gamepane (also for the blocks if they can be placed on certain positions)
     private static final int ROWS = 14;
@@ -56,6 +58,9 @@ public class GameController implements Initializable {
     private boolean isswitched = false;
 
     private static GameController instance;
+
+    private int paused = 3;
+    private boolean gameStarted = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -80,7 +85,7 @@ public class GameController implements Initializable {
 
         gamePane.sceneProperty().addListener((observable, oldScene, newScene) -> {
             if (newScene != null) {
-                newScene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+                newScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
                     if (!isRunning) return;
                     if (activeShape == null) return;
                     switch (event.getCode()) {
@@ -183,24 +188,25 @@ public class GameController implements Initializable {
         // ~60 updates / sek
         gameLoop = new Thread(() -> {
             try {
-                while (isRunning) {
-                    Platform.runLater(() -> {
-                        if (activeShape == null || !activeShape.isUpdatetingBlocks()) return;
+                while (!gameOver) {
+                    if (isRunning) {
+                        Platform.runLater(() -> {
+                            if (activeShape == null || !activeShape.isUpdatetingBlocks()) return;
 
-                        if (canMoveDown()) {
-                            activeShape.update(gametime.getTotalSeconds());
-                        } else {
-                            placeShape();
-                            checkAndClearRows();
-                            spawnShape();
-                        }
-                    });
+                            if (canMoveDown()) {
+                                activeShape.update(gametime.getTotalSeconds());
+                            } else {
+                                placeShape();
+                                checkAndClearRows();
+                                spawnShape();
+                            }
+                        });
+                    }
 
                     // ~60 updates / sek
                     Thread.sleep(16);
                 }
 
-                //Game Over:
                 int finalScore = Integer.parseInt(Objects.equals(scoreLabel.getText(), "x") ? "0" : scoreLabel.getText());
                 if (LoginController.score < finalScore) {
                     saveNewHighscore(finalScore, LoginController.username, LoginController.password);
@@ -211,7 +217,6 @@ public class GameController implements Initializable {
                         MainController.getInstance().setDisplayData(LoginController.username, String.valueOf(finalScore));
                     });
                 }
-
 
             } catch (InterruptedException | FileNotFoundException e) {
                 e.printStackTrace();
@@ -355,6 +360,7 @@ public class GameController implements Initializable {
             int col = (int) (block.getX() / BLOCK_WIDTH);
             if (row >= 0 && row < ROWS && col >= 0 && col < COLS && grid[row][col] != null) {
                 isRunning = false;
+                gameOver = true;
                 // don't show the next shape if the game is over
                 // because it gets placed incorrect
                 nextShapePane.getChildren().clear();
@@ -615,7 +621,17 @@ public class GameController implements Initializable {
     }
 
     public void onGameStateButtonClicked(ActionEvent actionEvent) {
-        if (!isRunning) {
+        if (isRunning) {
+            isRunning = false;
+            gametime.stop();
+            gameStateButton.setText("Continue");
+
+            paused--;
+            pauseCountLabel.setText(String.valueOf(paused));
+            return;
+        }
+
+        if (paused >= 0) {
             isRunning = true;
             gametime.start();
             gameStateButton.setText("Pause");
@@ -624,10 +640,12 @@ public class GameController implements Initializable {
             if (gameLoop == null || !gameLoop.isAlive()) {
                 startGameLoop();
             }
-        } else {
-            isRunning = false;
-            gametime.stop();
-            gameStateButton.setText("Continue");
+
+            if (paused == 0) {
+                gameStateButton.setDisable(true);
+            }
+
+            gamePane.requestFocus();
         }
     }
 }
