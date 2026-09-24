@@ -60,7 +60,6 @@ public class GameController implements Initializable {
     private static GameController instance;
 
     private int paused = 3;
-    private boolean gameStarted = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -86,6 +85,11 @@ public class GameController implements Initializable {
         gamePane.sceneProperty().addListener((observable, oldScene, newScene) -> {
             if (newScene != null) {
                 newScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                    if (event.getCode() == javafx.scene.input.KeyCode.SPACE) {
+                        onGameStateButtonClicked(null);
+                        event.consume();
+                        return;
+                    }
                     if (!isRunning) return;
                     if (activeShape == null) return;
                     switch (event.getCode()) {
@@ -107,6 +111,7 @@ public class GameController implements Initializable {
                             break;
                         case C:
                             dropinstant(BLOCK_WIDTH);
+                            break;
                         default:
                             break;
                     }
@@ -622,6 +627,10 @@ public class GameController implements Initializable {
 
     public void onGameStateButtonClicked(ActionEvent actionEvent) {
         if (isRunning) {
+            if (paused <= 0) {
+                return;
+            }
+
             isRunning = false;
             gametime.stop();
             gameStateButton.setText("Continue");
